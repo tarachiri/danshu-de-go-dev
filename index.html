@@ -219,7 +219,7 @@ flex-shrink:0;"></div>
     <button id="share-copy" onclick="copyShareUrl()"
        style="border:1px solid #888; border-radius:7px; padding:3px 8px;
               color:#aaa; font-size:11px; cursor:pointer;
-              background:none; flex-shrink:0;">📋</button>
+              background:none; flex-shrink:0;">📋リンクコピー</button>
   </div>
 </div>
 
@@ -535,11 +535,10 @@ const SITE_TEXT =
 function copyShareUrl() {
   navigator.clipboard.writeText(SITE_TEXT + SITE_URL).then(() => {
     const btn = document.getElementById('share-copy');
-    btn.textContent = '✅';
-    setTimeout(() => btn.textContent = '📋', 1500);
+    btn.textContent = '✅コピー完了';
+    setTimeout(() => btn.textContent = '📋リンクコピー', 1500);
   });
 }
-
 </script>
 </body>
 </html>
