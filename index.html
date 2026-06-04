@@ -418,40 +418,6 @@ if(!isInstalled){
     box-shadow:0 4px 16px rgba(0,0,0,0.5);
   `;
   btn.onclick = toggleMode;
-    box-shadow:0 4px 12px rgba(0,0,0,0.4);
-  `;
-
-  btn.addEventListener('click', () => {
-    const modal = document.createElement('div');
-    modal.style.cssText = 'position:fixed;bottom:0;left:0;right:0;background:#1a1a2e;color:#fff;padding:20px;z-index:10000;border-top:3px solid #C0392B;border-radius:16px 16px 0 0;';
-
-    if(isIOS){
-      modal.innerHTML = `
-        <div style="font-size:15px;font-weight:bold;color:#e94560;margin-bottom:8px;">📲 ホーム画面に追加しよう！</div>
-        <div style="font-size:13px;color:#ccc;line-height:2;">
-          ① 下の <b style="color:#fff;">共有ボタン（□↑）</b> をタップ<br>
-          ② <b style="color:#fff;">「ホーム画面に追加」</b> を選択<br>
-          ③ 右上の <b style="color:#fff;">「追加」</b> をタップ
-        </div>
-        <div style="text-align:right;margin-top:12px;">
-        <span onclick="document.body.removeChild(this.parentElement.parentElement)" style="color:#e94560;font-size:13px;cursor:pointer;">閉じる ✕</span>
-        </div>
-      `;
-    } else {
-      modal.innerHTML = `
-        <div style="font-size:15px;font-weight:bold;color:#e94560;margin-bottom:8px;">📲 ホーム画面に追加しよう！</div>
-        <div style="font-size:13px;color:#ccc;line-height:2;">
-          ① 右上の <b style="color:#fff;">メニュー（⋮）</b> をタップ<br>
-          ② <b style="color:#fff;">「ホーム画面に追加」</b> を選択
-        </div>
-        <div style="text-align:right;margin-top:12px;">
-          <span onclick="this.closest('div').remove()" style="color:#e94560;font-size:13px;cursor:pointer;">閉じる ✕</span>
-        </div>
-      `;
-    }
-    document.body.appendChild(modal);
-  });
-
   document.body.appendChild(btn);
 }
 
