@@ -400,24 +400,34 @@ const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
 
 if(!isInstalled){
   const btn = document.createElement('button');
-  btn.innerHTML = '🗺️';
   btn.id = 'mode-toggle-float';
+  btn.innerHTML = '🗺️ 探索モード';
   btn.style.cssText = `
     position:fixed;
     bottom:24px;
-    right:20px;
-    width:56px;
-    height:56px;
-    background:#0f3460;
+    right:16px;
+    background:#C0392B;
     color:#fff;
     border:none;
-    border-radius:50%;
-    font-size:24px;
+    border-radius:24px;
+    padding:10px 18px;
+    font-size:13px;
+    font-weight:bold;
     cursor:pointer;
     z-index:9999;
     box-shadow:0 4px 16px rgba(0,0,0,0.5);
   `;
-  btn.onclick = toggleMode;
+  btn.onclick = function() {
+    toggleMode();
+    const isExplore = btn.innerHTML.includes('探索');
+    if(isExplore) {
+      btn.innerHTML = '🗺️ 快適モード';
+      btn.style.background = '#27AE60';
+    } else {
+      btn.innerHTML = '🗺️ 探索モード';
+      btn.style.background = '#C0392B';
+    }
+  };
   document.body.appendChild(btn);
 }
 
