@@ -399,22 +399,24 @@ const isInstalled = window.matchMedia('(display-mode: standalone)').matches;
 const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
 
 if(!isInstalled){
-  const btn = document.createElement('div');
+  const btn = document.createElement('button');
   btn.innerHTML = '🗺️';
   btn.id = 'mode-toggle-float';
   btn.style.cssText = `
     position:fixed;
-    bottom:20px;
-    right:16px;
+    bottom:24px;
+    right:20px;
+    width:56px;
+    height:56px;
     background:#0f3460;
     color:#fff;
-    padding:12px 16px;
+    border:none;
     border-radius:50%;
-    font-size:20px;
-    font-weight:bold;
+    font-size:24px;
     cursor:pointer;
     z-index:9999;
-    box-shadow:0 4px 12px rgba(0,0,0,0.5);`;
+    box-shadow:0 4px 16px rgba(0,0,0,0.5);
+  `;
   btn.onclick = toggleMode;
     box-shadow:0 4px 12px rgba(0,0,0,0.4);
   `;
@@ -453,30 +455,7 @@ if(!isInstalled){
   document.body.appendChild(btn);
 }
 
-// 右下フローティングモード切替ボタン
-const modeFloatBtn = document.createElement('button');
-modeFloatBtn.innerHTML = '🗺️';
-modeFloatBtn.id = 'mode-toggle-float';
-modeFloatBtn.style.cssText = `
-  position:fixed;
-  bottom:24px;
-  right:20px;
-  width:56px;
-  height:56px;
-  background:#0f3460;
-  color:#fff;
-  border:none;
-  border-radius:50%;
-  font-size:24px;
-  cursor:pointer;
-  z-index:9999;
-  box-shadow:0 4px 16px rgba(0,0,0,0.5);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-`;
-modeFloatBtn.onclick = toggleMode;
-document.body.appendChild(modeFloatBtn);
+
 </script>
 </body>
 </html>
