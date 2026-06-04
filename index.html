@@ -331,7 +331,7 @@ let currentMode = 'comfort';
 
 function toggleMode() {
   currentMode = currentMode === 'comfort' ? 'explore' : 'comfort';
-  const btn = document.getElementById('mode-toggle');
+  const btn = document.getElementById('mode-toggle-float');
   btn.textContent = currentMode === 'comfort' ? '🗺️' : '🏃';
   btn.style.background = currentMode === 'explore' ? '#e94560' : 
 '#0f3460';
