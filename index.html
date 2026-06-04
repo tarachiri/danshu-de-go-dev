@@ -178,7 +178,7 @@ body { font-family: -apple-system, sans-serif; background: #1a1a2e; color: #fff;
       <option value="埼玉県">埼玉</option>
       <option value="千葉県">千葉</option>
     </select>
-    <button id="install-btn" onclick="showInstallGuide()" style="background:#C0392B;border:none;color:#fff;border-radius:20px;padding:6px 14px;font-size:13px;font-weight:bold;cursor:pointer;">📲 追加</button>
+    <button id="install-btn" onclick="showInstallGuide()" style="background:none;border:none;color:#fff;font-size:22px;cursor:pointer;padding:4px;">📲</button>
   </div>
 </div>
 
@@ -452,6 +452,31 @@ if(!isInstalled){
 
   document.body.appendChild(btn);
 }
+
+// 右下フローティングモード切替ボタン
+const modeFloatBtn = document.createElement('button');
+modeFloatBtn.innerHTML = '🗺️';
+modeFloatBtn.id = 'mode-toggle-float';
+modeFloatBtn.style.cssText = `
+  position:fixed;
+  bottom:24px;
+  right:20px;
+  width:56px;
+  height:56px;
+  background:#0f3460;
+  color:#fff;
+  border:none;
+  border-radius:50%;
+  font-size:24px;
+  cursor:pointer;
+  z-index:9999;
+  box-shadow:0 4px 16px rgba(0,0,0,0.5);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+`;
+modeFloatBtn.onclick = toggleMode;
+document.body.appendChild(modeFloatBtn);
 </script>
 </body>
 </html>
