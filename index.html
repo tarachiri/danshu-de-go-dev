@@ -332,9 +332,8 @@ let currentMode = 'comfort';
 function toggleMode() {
   currentMode = currentMode === 'comfort' ? 'explore' : 'comfort';
   const btn = document.getElementById('mode-toggle-float');
-  btn.textContent = currentMode === 'comfort' ? '🗺️' : '🏃';
-  btn.style.background = currentMode === 'explore' ? '#e94560' : 
-'#0f3460';
+  btn.innerHTML = currentMode === 'comfort' ? '<b>快適モード</b>' : '<b>探索モード</b>';
+  btn.style.background = currentMode === 'explore' ? '#1a5276' : '#C0392B';
   applyFilters();
 }
 
@@ -401,7 +400,7 @@ const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
 if(!isInstalled){
   const btn = document.createElement('button');
   btn.id = 'mode-toggle-float';
-  btn.innerHTML = '🗺️ 探索モード';
+  btn.innerHTML = '<b>探索モード</b>';
   btn.style.cssText = `
     position:fixed;
     bottom:24px;
@@ -424,7 +423,7 @@ if(!isInstalled){
       btn.innerHTML = '🗺️ 快適モード';
       btn.style.background = '#27AE60';
     } else {
-      btn.innerHTML = '🗺️ 探索モード';
+      btn.innerHTML = '<b>探索モード</b>';
       btn.style.background = '#C0392B';
     }
   };
