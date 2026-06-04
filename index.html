@@ -178,7 +178,7 @@ body { font-family: -apple-system, sans-serif; background: #1a1a2e; color: #fff;
       <option value="埼玉県">埼玉</option>
       <option value="千葉県">千葉</option>
     </select>
-    <button id="mode-toggle" onclick="toggleMode()">🗺️</button>
+    <button id="install-btn" onclick="showInstallGuide()" style="background:#C0392B;border:none;color:#fff;border-radius:20px;padding:6px 14px;font-size:13px;font-weight:bold;cursor:pointer;">📲 追加</button>
   </div>
 </div>
 
@@ -400,19 +400,22 @@ const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
 
 if(!isInstalled){
   const btn = document.createElement('div');
-  btn.innerHTML = '📲 ホーム画面に追加';
+  btn.innerHTML = '🗺️';
+  btn.id = 'mode-toggle-float';
   btn.style.cssText = `
     position:fixed;
     bottom:20px;
     right:16px;
-    background:#C0392B;
+    background:#0f3460;
     color:#fff;
-    padding:10px 18px;
-    border-radius:24px;
-    font-size:13px;
+    padding:12px 16px;
+    border-radius:50%;
+    font-size:20px;
     font-weight:bold;
     cursor:pointer;
     z-index:9999;
+    box-shadow:0 4px 12px rgba(0,0,0,0.5);`;
+  btn.onclick = toggleMode;
     box-shadow:0 4px 12px rgba(0,0,0,0.4);
   `;
 
