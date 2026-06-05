@@ -372,7 +372,14 @@ function buildPopup(v) {
       ${addr ? `<div class="popup-address">📍 ${addr}</div>` : ''}
       ${dateStr ? `<div class="popup-date" style="color:${badgeColors[label]}">📅 ${dateStr} ${timeStr}</div>` : ''}
       ${v.recurrence ? `<div class="popup-recurrence">🔁 ${v.recurrence}</div>` : ''}
-      ${v.contact_phone ? `<div class="popup-phone">📞 ${v.contact_phone}</div>` : ''}
+     
+      ${v.official_url ? `<a href="${v.official_url}" target="_blank" class="popup-link" style="background:#2ecc71">🌐 公式サイト</a>` : ''}
+      ${v.contact_name && v.contact_phone ? `<button onclick="if(confirm('${v.contact_name}さんに電話しますか？')){location.href='tel:${v.contact_phone}'}" class="popup-link" style="background:#e67e22;border:none;cursor:pointer;text-align:left">📞 ${v.contact_name}</button>` : ''}
+
+
+
+style="background:#e67e22;border:none;cursor:pointer;text-align:left">📞 
+${v.contact_name}</button>` : ''}
       <div class="popup-links">
         ${calLink}
         ${mapsLink}
