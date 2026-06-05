@@ -397,6 +397,7 @@ function buildPopup(v) {
       ${v.contact_phone ? `<div class="popup-phone">📞 ${v.contact_phone}</div>` : ''}
       ${verifyNotice}
       <div class="popup-links">
+                ${v.official_url ? `<a href="${v.official_url}" target="_blank" class="popup-link" style="background:#27AE60;color:#fff">🌐 公式サイト</a>` : ''}
         ${calLink}
         ${mapsLink}
       </div>
