@@ -501,3 +501,198 @@ async function loadVenues() {
     applyFilters();
     updateLastUpdatedUI();
   }
+
+function populateAreaOptions() {
+  const sel = document.getElementById("area-filter");
+  if (!sel) return;
+  const prev = sel.value || "all";
+  while (sel.options.length > 1) sel.remove(1);
+  const prefs = [...new Set(VENUES.map(v => v.prefecture).filter(Boolean))].sort();
+  prefs.forEach(p => {
+    const opt = document.createElement("option");
+    opt.value = p;
+    let label = p;
+    if (p === '東京都' || p === '大阪府' || p === '京都府') {
+      label = p.replace(/[都府]$/, '');
+    } else if (p === '北海道') {
+      label = '北海道';
+    } else {
+      label = p.replace(/[都道府県]$/, '');
+    }
+    opt.textContent = label;
+    sel.appendChild(opt);
+  });
+  if ([...sel.options].some(o => o.value === prev)) sel.value = prev;
+}
+
+function clearSearch() {
+  const inp = document.getElementById("search-input");
+  if (inp) {
+    inp.value = "";
+    applyFilters();
+  }
+}
+
+function applyFilters() {
+  const dateFilter = document.getElementById("date-filter").value;
+  const areaFilter = document.getElementById("area-filter").value;
+  const searchInput = document.getElementById("search-input");
+  const q = (searchInput && searchInput.value) ? searchInput.value.trim().toLowerCase() : "";
+
+  allMarkers.forEach(m => map.removeLayer(m));
+  allMarkers = [];
+
+  let count = 0;
+  VENUES.forEach(v => {
+    if (!v.lat || !v.lng) return;
+
+    const effDate = getEffectiveNextDate(v);
+    const label = getDateLabel(effDate);
+
+    if (currentMode === "comfort" && label === "none") return;
+    if (currentMode === "comfort" && label === "other") return;
+
+    if (dateFilter !== "all" && label !== dateFilter) return;
+
+    if (areaFilter !== "all" && v.prefecture !== areaFilter) return;
+
+    if (q) {
+      const haystack = getVenueSearchHaystack(v);
+      const terms = q.split(/\s+/).filter(Boolean);
+      if (!terms.every(t => haystack.indexOf(t) !== -1)) return;
+    }
+
+    const marker = L.marker([v.lat, v.lng], { icon: makeIcon(v) })
+      .bindPopup(buildPopup(v), { maxWidth: 300 });
+
+    marker.addTo(map);
+    allMarkers.push(marker);
+    count++;
+  });
+
+  const todayCount = VENUES.filter(v => getDateLabel(getEffectiveNextDate(v)) === "today").length;
+  const tomorrowCount = VENUES.filter(v => getDateLabel(getEffectiveNextDate(v)) === "tomorrow").length;
+  const dayafterCount = VENUES.filter(v => getDateLabel(getEffectiveNextDate(v)) === "dayafter").length;
+  document.getElementById("count-today").textContent = todayCount;
+  document.getElementById("count-tomorrow").textContent = tomorrowCount;
+  document.getElementById("count-dayafter").textContent = dayafterCount;
+  const total = VENUES.length;
+  document.getElementById("count-total").textContent = `全${total}件中${count}件`;
+
+  document.getElementById("count-bar").innerHTML =
+    `全${total}件中${count}件表示 <span style="color:#C0392B">●</span>${todayCount} <span style="color:#D35400">●</span>${tomorrowCount} <span style="color:#E8857A">●</span>${dayafterCount}`;
+}
+
+let allMarkers = [];
+let currentMode = 'comfort';
+
+function toggleMode() {
+  currentMode = currentMode === 'comfort' ? 'explore' : 'comfort';
+  const btn = document.getElementById('mode-toggle-float');
+  if (btn) {
+    btn.innerHTML = currentMode === 'comfort' ? '<b>快適モード</b>' : '<b>探索モード</b>';
+    btn.style.background = currentMode === 'explore' ? '#1a5276' : '#C0392B';
+  }
+  if (typeof applyFilters === 'function') applyFilters();
+}
+
+function showInstallGuide() {
+  const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
+  const isAndroid = /android/i.test(navigator.userAgent);
+  const overlay = document.createElement('div');
+  overlay.style.cssText = 'position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.6);z-index:10000;display:flex;align-items:flex-end;';
+  const modal = document.createElement('div');
+  modal.style.cssText = 'background:#1a1a2e;color:#fff;padding:24px;width:100%;border-top:3px solid #C0392B;border-radius:16px 16px 0 0;';
+  if(isIOS){
+    modal.innerHTML = `
+      <div style="font-size:16px;font-weight:bold;color:#e94560;margin-bottom:12px;">📲 ホーム画面に追加しよう！</div>
+      <div style="font-size:14px;line-height:2;color:#ccc;">
+        ① 下のメニューバーの <b style="color:#fff;">「共有」</b> をタップ<br>
+        ② <b style="color:#fff;">「ホーム画面に追加」</b> を選択<br>
+        ③ 右上の <b style="color:#fff;">「追加」</b> をタップ
+      </div>
+      <button onclick="this.closest('div[style*=fixed]').remove()" style="margin-top:16px;width:100%;padding:12px;background:#C0392B;color:#fff;border:none;border-radius:8px;font-size:15px;font-weight:bold;">閉じる</button>
+    `;
+  } else if(isAndroid){
+    modal.innerHTML = `
+      <div style="font-size:16px;font-weight:bold;color:#e94560;margin-bottom:12px;">📲 ホーム画面に追加しよう！</div>
+      <div style="font-size:14px;line-height:2;color:#ccc;">
+        ① ブラウザ右上の <b style="color:#fff;">メニュー（⋮）</b> をタップ<br>
+        ② <b style="color:#fff;">「ホーム画面に追加」</b> を選択
+      </div>
+      <button onclick="this.closest('div[style*=fixed]').remove()" style="margin-top:16px;width:100%;padding:12px;background:#C0392B;color:#fff;border:none;border-radius:8px;font-size:15px;font-weight:bold;">閉じる</button>
+    `;
+  } else {
+    modal.innerHTML = `
+      <div style="font-size:16px;font-weight:bold;color:#e94560;margin-bottom:12px;">📲 ホーム画面に追加しよう！</div>
+      <div style="font-size:14px;color:#ccc;">スマートフォンでアクセスしてホーム画面に追加してください！</div>
+      <button onclick="this.closest('div[style*=fixed]').remove()" style="margin-top:16px;width:100%;padding:12px;background:#C0392B;color:#fff;border:none;border-radius:8px;font-size:15px;font-weight:bold;">閉じる</button>
+    `;
+  }
+  overlay.appendChild(modal);
+  overlay.onclick = function(e) { if(e.target === overlay) overlay.remove(); };
+  document.body.appendChild(overlay);
+}
+
+if(!window.matchMedia('(display-mode: standalone)').matches){
+  const btn = document.createElement('button');
+  btn.id = 'mode-toggle-float';
+  btn.innerHTML = '<b>探索モード</b>';
+  btn.style.cssText = `
+    position:fixed;
+    bottom:24px;
+    right:16px;
+    background:#C0392B;
+    color:#fff;
+    border:none;
+    border-radius:24px;
+    padding:10px 18px;
+    font-size:13px;
+    font-weight:bold;
+    cursor:pointer;
+    z-index:9999;
+    box-shadow:0 4px 16px rgba(0,0,0,0.5);
+  `;
+  btn.onclick = function() {
+    toggleMode();
+    const isExplore = btn.innerHTML.includes('探索');
+    if(isExplore) {
+      btn.innerHTML = '🗺️ 快適モード';
+      btn.style.background = '#27AE60';
+    } else {
+      btn.innerHTML = '<b>探索モード</b>';
+      btn.style.background = '#C0392B';
+    }
+  };
+  document.body.appendChild(btn);
+}
+
+const SITE_URL = 'https://dansyu-go.nukadokonokai.com';
+const SITE_TEXT = 
+'🏃断酒でGO！今日・明日の断酒例会場をすぐ探せるマップ\n';
+
+function copyShareUrl() {
+  navigator.clipboard.writeText(SITE_TEXT + SITE_URL).then(() => {
+    const btn = document.getElementById('share-copy');
+    btn.textContent = '✅コピー完了';
+    setTimeout(() => btn.textContent = '📋リンクコピー', 1500);
+  });
+}
+
+function openShareBar() {
+  const t = encodeURIComponent(SITE_TEXT + SITE_URL);
+  const u = encodeURIComponent(SITE_URL);
+  const sx = document.getElementById('share-x');
+  const sl = document.getElementById('share-line');
+  const sf = document.getElementById('share-fb');
+  if (sx) sx.onclick = () => window.open(`https://twitter.com/intent/tweet?text=${t}`, '_blank');
+  if (sl) sl.onclick = () => window.open(`https://line.me/R/share?text=${encodeURIComponent(SITE_TEXT + SITE_URL)}`, '_blank');
+  if (sf) sf.onclick = () => window.open(`https://www.facebook.com/sharer/sharer.php?u=${u}`, '_blank');
+}
+
+openShareBar();
+
+loadVenues();
+</script>
+</body>
+</html>
