@@ -394,8 +394,10 @@ function buildPopup(v) {
       ${addr ? `<div class="popup-address">📍 ${addr}</div>` : ''}
       ${dateStr ? `<div class="popup-date" style="color:${badgeColors[label]}">📅 ${dateStr} ${timeStr}</div>` : ''}
       ${v.recurrence ? `<div class="popup-recurrence">🔁 ${v.recurrence}</div>` : ''}
-      ${v.contact_phone ? `<div class="popup-phone">📞 ${v.contact_phone}</div>` : ''}
-      ${verifyNotice}
+
+      
+      ${v.contact_phone && false ? `<div class="popup-phone">📞 ${v.contact_phone}</div>` : ''}
+
       <div class="popup-links">
                 ${v.official_url ? `<a href="${v.official_url}" target="_blank" class="popup-link" style="background:#27AE60;color:#fff">🌐公式<br>サイト</a>` : ''}
         ${calLink}
