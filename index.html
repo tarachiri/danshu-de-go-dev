@@ -25,7 +25,7 @@ body { font-family: -apple-system, sans-serif; background: #1a1a2e; color: #fff;
   }
   #title {
     color: #e94560;
-    font-size: 16px;
+    font-size: 20px;
     font-weight: bold;
     letter-spacing: 1px;
     white-space: nowrap;
@@ -37,20 +37,20 @@ body { font-family: -apple-system, sans-serif; background: #1a1a2e; color: #fff;
     border: 1px solid #e94560;
     border-radius: 6px;
     padding: 6px 4px;
-    font-size: 12px;
+    font-size: 16px;
   }
   #mode-toggle {
     background: #0f3460;
     border: 1px solid #e94560;
     border-radius: 6px;
     padding: 6px 10px;
-    font-size: 16px;
+    font-size: 20px;
     cursor: pointer;
     white-space: nowrap;
   }
 
-  #header h1 { font-size: 24px; color: #e94560; letter-spacing: 2px; }
-  #header p { font-size: 12px; color: #a0a0b0; margin-top: 4px; }
+  #header h1 { font-size: 28px; color: #e94560; letter-spacing: 2px; }
+  #header p { font-size: 16px; color: #a0a0b0; margin-top: 4px; }
 
 
 #filter-bar {
@@ -69,7 +69,7 @@ body { font-family: -apple-system, sans-serif; background: #1a1a2e; color: #fff;
   }
 
   .filter-label {
-    font-size: 11px;
+    font-size: 15px;
     color: #a0a0b0;
     white-space: nowrap;
   }
@@ -80,7 +80,7 @@ body { font-family: -apple-system, sans-serif; background: #1a1a2e; color: #fff;
     border: 1px solid #e94560;
     border-radius: 8px;
     padding: 6px 10px;
-    font-size: 13px;
+    font-size: 17px;
     cursor: pointer;
     outline: none;
     appearance: none;
@@ -105,7 +105,7 @@ body { font-family: -apple-system, sans-serif; background: #1a1a2e; color: #fff;
   #count-bar {
     background: #16213e;
     padding: 6px 16px;
-    font-size: 12px;
+    font-size: 16px;
     color: #a0a0b0;
     border-top: 1px solid #0f3460;
     text-align: center;
@@ -116,28 +116,28 @@ body { font-family: -apple-system, sans-serif; background: #1a1a2e; color: #fff;
     display: inline-block;
     padding: 2px 8px;
     border-radius: 10px;
-    font-size: 11px;
+    font-size: 15px;
     font-weight: bold;
     color: #fff;
     margin-bottom: 6px;
   }
-  .popup-name { font-size: 15px; font-weight: bold; color: #1a1a2e; margin-bottom: 4px; }
-  .popup-facility { font-size: 13px; color: #444; margin-bottom: 3px; }
-  .popup-address { font-size: 12px; color: #666; margin-bottom: 3px; }
-  .popup-date { font-size: 13px; font-weight: bold; margin-bottom: 3px; }
-  .popup-schedule { font-size: 12px; color: #555; margin-bottom: 3px; }
-  .popup-recurrence { font-size: 11px; color: #888; margin-bottom: 3px; }
-  .popup-phone { font-size: 13px; font-weight: bold; color: #e94560; }
+  .popup-name { font-size: 19px; font-weight: bold; color: #1a1a2e; margin-bottom: 4px; }
+  .popup-facility { font-size: 17px; color: #444; margin-bottom: 3px; }
+  .popup-address { font-size: 16px; color: #666; margin-bottom: 3px; }
+  .popup-date { font-size: 17px; font-weight: bold; margin-bottom: 3px; }
+  .popup-schedule { font-size: 16px; color: #555; margin-bottom: 3px; }
+  .popup-recurrence { font-size: 15px; color: #888; margin-bottom: 3px; }
+  .popup-phone { font-size: 17px; font-weight: bold; color: #e94560; }
   .popup-verify {
     margin-top: 8px; padding: 8px 10px;
     background: #FFF3CD; border: 1px solid #FFE08A; border-radius: 6px;
-    font-size: 12px; color: #7A5D00; line-height: 1.6;
+    font-size: 16px; color: #7A5D00; line-height: 1.6;
   }
   .verify-link { color: #1a6fb3; word-break: break-all; text-decoration: underline; }
   .popup-links { display: flex; flex-direction: column; gap: 6px; margin-top: 8px; }
   .popup-link {
     display: block; text-align: center; padding: 6px 10px;
-    border-radius: 6px; font-size: 16px; font-weight: bold;
+    border-radius: 6px; font-size: 20px; font-weight: bold;
     text-decoration: none; transition: opacity 0.2s;
   }
   .popup-link:hover { opacity: 0.8; }
@@ -161,7 +161,7 @@ body { font-family: -apple-system, sans-serif; background: #1a1a2e; color: #fff;
 
 <div id="header">
   <div id="top-bar">
-    <span id="title">🏃 断酒<span style="font-size:11px;">で</span>GO</span>
+    <span id="title">🏃 断酒<span style="font-size: 15px;">で</span>GO</span>
     <select id="date-filter" onchange="applyFilters()">
       <option value="all">📅 全日付</option>
       <option value="today">今日</option>
@@ -175,7 +175,7 @@ body { font-family: -apple-system, sans-serif; background: #1a1a2e; color: #fff;
       <option value="埼玉県">埼玉</option>
       <option value="千葉県">千葉</option>
     </select>
-    <button id="install-btn" onclick="showInstallGuide()" style="background:none;border:none;color:#fff;font-size:22px;cursor:pointer;padding:4px;">📲</button>
+    <button id="install-btn" onclick="showInstallGuide()" style="background:none;border:none;color:#fff;font-size: 26px;cursor:pointer;padding:4px;">📲</button>
   </div>
 </div>
 
@@ -185,24 +185,24 @@ body { font-family: -apple-system, sans-serif; background: #1a1a2e; color: #fff;
 -webkit-overflow-scrolling:touch; scrollbar-width:none;">
   <div style="display:inline-flex; align-items:center; gap:10px; 
 padding:6px 12px; min-width:max-content;">
-    <span id="count-total" style="color:#a0a0b0; font-size:11px; 
+    <span id="count-total" style="color:#a0a0b0; font-size: 15px; 
 flex-shrink:0;">全191件中0件</span>
     <div class="legend-item" style="flex-shrink:0;">
       <div class="legend-dot" 
 style="width:9px;height:9px;background:#C0392B;"></div>
-      <span style="font-size:11px;">今日<span 
+      <span style="font-size: 15px;">今日<span 
 id="count-today">0</span>件</span>
     </div>
     <div class="legend-item" style="flex-shrink:0;">
       <div class="legend-dot" 
 style="width:9px;height:9px;background:#D35400;"></div>
-      <span style="font-size:11px;">明日<span 
+      <span style="font-size: 15px;">明日<span 
 id="count-tomorrow">0</span>件</span>
     </div>
     <div class="legend-item" style="flex-shrink:0;">
       <div class="legend-dot" 
 style="width:9px;height:9px;background:#E8857A;"></div>
-      <span style="font-size:11px;">明後日<span 
+      <span style="font-size: 15px;">明後日<span 
 id="count-dayafter">0</span>件</span>
     </div>
     <div style="width:1px; height:16px; background:#e94560; opacity:0.4; 
@@ -210,21 +210,21 @@ flex-shrink:0;"></div>
     <a id="share-x" href="#" target="_blank"
        style="border:1px solid #1d9bf0; border-radius:7px; padding:3px 
 8px;
-              color:#1d9bf0; font-size:11px; font-weight:bold;
+              color:#1d9bf0; font-size: 15px; font-weight:bold;
               text-decoration:none; flex-shrink:0;">𝕏</a>
     <a id="share-line" href="#" target="_blank"
        style="border:1px solid #06c755; border-radius:7px; padding:3px 
 8px;
-              color:#06c755; font-size:11px; font-weight:bold;
+              color:#06c755; font-size: 15px; font-weight:bold;
               text-decoration:none; flex-shrink:0;">LINE</a>
     <a id="share-fb" href="#" target="_blank"
        style="border:1px solid #1877f2; border-radius:7px; padding:3px 
 8px;
-              color:#1877f2; font-size:11px; font-weight:bold;
+              color:#1877f2; font-size: 15px; font-weight:bold;
               text-decoration:none; flex-shrink:0;">f</a>
     <button id="share-copy" onclick="copyShareUrl()"
        style="border:1px solid #888; border-radius:7px; padding:3px 8px;
-              color:#aaa; font-size:11px; cursor:pointer;
+              color:#aaa; font-size: 15px; cursor:pointer;
               background:none; flex-shrink:0;">📋リンクコピー</button>
   </div>
 </div>
@@ -235,30 +235,30 @@ flex-shrink:0;"></div>
     transform:translateX(100%);
     transition:transform 0.35s cubic-bezier(.4,0,.2,1);
     white-space:nowrap;">
-    <span style="color:#a0a0b0; font-size:11px; 
+    <span style="color:#a0a0b0; font-size: 15px; 
 flex-shrink:0;">シェア:</span>
     <a id="share-x" href="#" target="_blank"
        style="border:1px solid #1d9bf0; border-radius:7px;
-              padding:4px 10px; color:#1d9bf0; font-size:12px;
+              padding:4px 10px; color:#1d9bf0; font-size: 16px;
               font-weight:bold; text-decoration:none; 
 flex-shrink:0;">𝕏</a>
     <a id="share-line" href="#" target="_blank"
        style="border:1px solid #06c755; border-radius:7px;
-              padding:4px 8px; color:#06c755; font-size:12px;
+              padding:4px 8px; color:#06c755; font-size: 16px;
               font-weight:bold; text-decoration:none; 
 flex-shrink:0;">LINE</a>
     <a id="share-fb" href="#" target="_blank"
        style="border:1px solid #1877f2; border-radius:7px;
-              padding:4px 10px; color:#1877f2; font-size:12px;
+              padding:4px 10px; color:#1877f2; font-size: 16px;
               font-weight:bold; text-decoration:none; 
 flex-shrink:0;">f</a>
     <button id="share-copy" onclick="copyShareUrl()"
        style="border:1px solid #888; border-radius:7px;
-              padding:4px 8px; color:#aaa; font-size:12px;
+              padding:4px 8px; color:#aaa; font-size: 16px;
               cursor:pointer; background:none; flex-shrink:0;">📋</button>
     <button onclick="closeShareBar()"
        style="margin-left:auto; background:none; border:1px solid #555;
-              border-radius:6px; color:#aaa; font-size:13px;
+              border-radius:6px; color:#aaa; font-size: 17px;
               padding:3px 8px; cursor:pointer; flex-shrink:0;">✕</button>
   </div>
 
@@ -267,7 +267,7 @@ flex-shrink:0;">f</a>
 
 <div id="map"></div>
 <div id="footer" style="background:#16213e;padding:4px 
-16px;font-size:11px;color:#a0a0b0;text-align:center;border-top:1px solid #0f3460;">© 
+16px;font-size: 15px;color:#a0a0b0;text-align:center;border-top:1px solid #0f3460;">© 
 2026  断酒でGO製作委員会| Beta版</div> <script>
 const map = L.map('map').setView([35.68, 139.60], 9);
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -420,28 +420,28 @@ function showInstallGuide() {
   modal.style.cssText = 'background:#1a1a2e;color:#fff;padding:24px;width:100%;border-top:3px solid #C0392B;border-radius:16px 16px 0 0;';
   if(isIOS){
     modal.innerHTML = `
-      <div style="font-size:16px;font-weight:bold;color:#e94560;margin-bottom:12px;">📲 ホーム画面に追加しよう！</div>
-      <div style="font-size:14px;line-height:2;color:#ccc;">
+      <div style="font-size: 20px;font-weight:bold;color:#e94560;margin-bottom:12px;">📲 ホーム画面に追加しよう！</div>
+      <div style="font-size: 18px;line-height:2;color:#ccc;">
         ① 下のメニューバーの <b style="color:#fff;">「共有」</b> をタップ<br>
         ② <b style="color:#fff;">「ホーム画面に追加」</b> を選択<br>
         ③ 右上の <b style="color:#fff;">「追加」</b> をタップ
       </div>
-      <button onclick="this.closest('div[style*=fixed]').remove()" style="margin-top:16px;width:100%;padding:12px;background:#C0392B;color:#fff;border:none;border-radius:8px;font-size:15px;font-weight:bold;">閉じる</button>
+      <button onclick="this.closest('div[style*=fixed]').remove()" style="margin-top:16px;width:100%;padding:12px;background:#C0392B;color:#fff;border:none;border-radius:8px;font-size: 19px;font-weight:bold;">閉じる</button>
     `;
   } else if(isAndroid){
     modal.innerHTML = `
-      <div style="font-size:16px;font-weight:bold;color:#e94560;margin-bottom:12px;">📲 ホーム画面に追加しよう！</div>
-      <div style="font-size:14px;line-height:2;color:#ccc;">
+      <div style="font-size: 20px;font-weight:bold;color:#e94560;margin-bottom:12px;">📲 ホーム画面に追加しよう！</div>
+      <div style="font-size: 18px;line-height:2;color:#ccc;">
         ① ブラウザ右上の <b style="color:#fff;">メニュー（⋮）</b> をタップ<br>
         ② <b style="color:#fff;">「ホーム画面に追加」</b> を選択
       </div>
-      <button onclick="this.closest('div[style*=fixed]').remove()" style="margin-top:16px;width:100%;padding:12px;background:#C0392B;color:#fff;border:none;border-radius:8px;font-size:15px;font-weight:bold;">閉じる</button>
+      <button onclick="this.closest('div[style*=fixed]').remove()" style="margin-top:16px;width:100%;padding:12px;background:#C0392B;color:#fff;border:none;border-radius:8px;font-size: 19px;font-weight:bold;">閉じる</button>
     `;
   } else {
     modal.innerHTML = `
-      <div style="font-size:16px;font-weight:bold;color:#e94560;margin-bottom:12px;">📲 ホーム画面に追加しよう！</div>
-      <div style="font-size:14px;color:#ccc;">スマートフォンでアクセスしてホーム画面に追加してください！</div>
-      <button onclick="this.closest('div[style*=fixed]').remove()" style="margin-top:16px;width:100%;padding:12px;background:#C0392B;color:#fff;border:none;border-radius:8px;font-size:15px;font-weight:bold;">閉じる</button>
+      <div style="font-size: 20px;font-weight:bold;color:#e94560;margin-bottom:12px;">📲 ホーム画面に追加しよう！</div>
+      <div style="font-size: 18px;color:#ccc;">スマートフォンでアクセスしてホーム画面に追加してください！</div>
+      <button onclick="this.closest('div[style*=fixed]').remove()" style="margin-top:16px;width:100%;padding:12px;background:#C0392B;color:#fff;border:none;border-radius:8px;font-size: 19px;font-weight:bold;">閉じる</button>
     `;
   }
   overlay.appendChild(modal);
@@ -530,7 +530,7 @@ if(!isInstalled){
     border:none;
     border-radius:24px;
     padding:10px 18px;
-    font-size:13px;
+    font-size: 17px;
     font-weight:bold;
     cursor:pointer;
     z-index:9999;
