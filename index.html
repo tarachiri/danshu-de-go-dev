@@ -100,7 +100,7 @@ body { font-family: -apple-system, sans-serif; background: #1a1a2e; color: #fff;
     flex-shrink: 0;
   }
 
-  #map { flex: 1; width: 100%; min-height: 0; }
+  #map { flex: 1; width: 100%; min-height: 0; height: 100%; } /* ensure size for Leaflet */
 
   #count-bar {
     background: #16213e;
@@ -261,9 +261,6 @@ flex-shrink:0;">f</a>
               border-radius:6px; color:#aaa; font-size:13px;
               padding:3px 8px; cursor:pointer; flex-shrink:0;">✕</button>
   </div>
-
-</div>
-
 
 <div id="map"></div>
 <div id="footer" style="background:#16213e;padding:4px 
@@ -490,6 +487,8 @@ async function loadVenues() {
     populateAreaOptions();
     applyFilters();
     updateLastUpdatedUI();
+    // Leaflet needs this when container size is set after init (flex layout)
+    setTimeout(() => { if (typeof map !== 'undefined' && map) map.invalidateSize(); }, 100);
   } catch (e) {
     console.error("venues.json load error:", e);
     const bar = document.getElementById("count-bar");
@@ -500,6 +499,7 @@ async function loadVenues() {
     populateAreaOptions();
     applyFilters();
     updateLastUpdatedUI();
+    setTimeout(() => { if (typeof map !== 'undefined' && map) map.invalidateSize(); }, 100);
   }
 
 function populateAreaOptions() {
@@ -688,6 +688,12 @@ function openShareBar() {
   if (sx) sx.onclick = () => window.open(`https://twitter.com/intent/tweet?text=${t}`, '_blank');
   if (sl) sl.onclick = () => window.open(`https://line.me/R/share?text=${encodeURIComponent(SITE_TEXT + SITE_URL)}`, '_blank');
   if (sf) sf.onclick = () => window.open(`https://www.facebook.com/sharer/sharer.php?u=${u}`, '_blank');
+}
+
+function closeShareBar() {
+  // The share-panel is a sliding overlay; for now just hide via transform if present
+  const panel = document.getElementById('share-panel');
+  if (panel) panel.style.transform = 'translateX(100%)';
 }
 
 openShareBar();
