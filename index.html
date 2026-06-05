@@ -514,8 +514,7 @@ if('serviceWorker' in navigator){
 const isInstalled = window.matchMedia('(display-mode: standalone)').matches;
 const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
 
-if(!isInstalled){
-  const btn = document.createElement('button');
+const btn = document.createElement('button');
   btn.id = 'mode-toggle-float';
   btn.innerHTML = '<b>探索モード</b>';
   btn.style.cssText = `
@@ -545,7 +544,6 @@ if(!isInstalled){
     }
   };
   document.body.appendChild(btn);
-}
 
 
 const SITE_URL = 'https://dansyu-go.nukadokonokai.com';
