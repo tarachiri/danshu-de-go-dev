@@ -134,8 +134,8 @@ body { font-family: -apple-system, sans-serif; background: #1a1a2e; color: #fff;
     font-size: 16px; color: #7A5D00; line-height: 1.6;
   }
   .verify-link { color: #1a6fb3; word-break: break-all; text-decoration: underline; }
-  .popup-links { display: flex; flex-direction: column; gap: 6px; margin-top: 8px; }
-  .popup-link {
+  .popup-links { display: flex; flex-direction: row; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+  .popup-link { flex: 1; min-width: calc(50% - 3px);
     display: block; text-align: center; padding: 6px 10px;
     border-radius: 6px; font-size: 20px; font-weight: bold;
     text-decoration: none; transition: opacity 0.2s;
@@ -367,7 +367,7 @@ function buildPopup(v) {
   // Google Maps経路リンク
   const mapsQuery = encodeURIComponent(addr || facility);
   const mapsLink = mapsQuery
-    ? `<a href="https://www.google.com/maps/dir/?api=1&destination=${mapsQuery}" target="_blank" class="popup-link map-link">🗺️ 経路を調べる</a>`
+    ? `<a href="https://www.google.com/maps/dir/?api=1&destination=${mapsQuery}" target="_blank" class="popup-link map-link" style="color:#000">🗺️ 経路を調べる</a>`
     : '';
 
   // --- 要確認ポップアップ（needs_verification = 1）---
