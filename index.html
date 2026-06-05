@@ -367,7 +367,7 @@ function buildPopup(v) {
   // Google Maps経路リンク
   const mapsQuery = encodeURIComponent(addr || facility);
   const mapsLink = mapsQuery
-    ? `<a href="https://www.google.com/maps/dir/?api=1&destination=${mapsQuery}" target="_blank" class="popup-link map-link" style="color:#000">🗺️ 経路を調べる</a>`
+    ? `<a href="https://www.google.com/maps/dir/?api=1&destination=${mapsQuery}" target="_blank" class="popup-link map-link" style="color:#000">🗺️経路を<br>調べる</a>`
     : '';
 
   // --- 要確認ポップアップ（needs_verification = 1）---
@@ -397,7 +397,7 @@ function buildPopup(v) {
       ${v.contact_phone ? `<div class="popup-phone">📞 ${v.contact_phone}</div>` : ''}
       ${verifyNotice}
       <div class="popup-links">
-                ${v.official_url ? `<a href="${v.official_url}" target="_blank" class="popup-link" style="background:#27AE60;color:#fff">🌐 公式サイト</a>` : ''}
+                ${v.official_url ? `<a href="${v.official_url}" target="_blank" class="popup-link" style="background:#27AE60;color:#fff">🌐公式<br>サイト</a>` : ''}
         ${calLink}
         ${mapsLink}
       </div>
