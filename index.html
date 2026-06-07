@@ -136,6 +136,37 @@ body { font-family: -apple-system, sans-serif; background: #1a1a2e; color: #fff;
   .pref-saitama { background: #3a2a00; color: #ffc844; }
   .pref-kanagawa { background: #0a3a1a; color: #44cc88; }
   .pref-chiba { background: #3a1a2a; color: #ff88bb; }
+  #schedule { flex: 1; width: 100%; overflow-y: auto; background: #0f1b30; display: none; }
+  #tab-bar { background: #16213e; display: flex; border-bottom: 1px solid #0f3460; flex-shrink: 0; }
+  .tab-btn {
+    flex: 1; padding: 9px 0; font-size: 16px; font-weight: bold;
+    background: none; border: none; color: #a0a0b0; cursor: pointer;
+    border-bottom: 3px solid transparent; transition: all 0.15s;
+  }
+  .tab-btn.active { color: #e94560; border-bottom-color: #e94560; }
+  .sch-date-header {
+    background: #16213e; padding: 6px 12px; font-size: 13px;
+    color: #a0a0b0; border-bottom: 1px solid #0f3460;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .sch-date-today { background: #e94560; color: #fff; font-size: 11px; padding: 1px 6px; border-radius: 3px; }
+  .sch-date-count { margin-left: auto; font-size: 12px; color: #555; }
+  .sch-card {
+    margin: 8px 10px; padding: 10px 12px;
+    background: #16213e; border-radius: 8px;
+    border-left: 4px solid #e94560; display: flex; gap: 10px; align-items: flex-start;
+  }
+  .sch-time { min-width: 48px; text-align: center; }
+  .sch-time-start { font-size: 15px; font-weight: bold; color: #fff; line-height: 1; }
+  .sch-time-end { font-size: 11px; color: #555; margin-top: 2px; }
+  .sch-info { flex: 1; min-width: 0; }
+  .sch-name { font-size: 14px; font-weight: bold; color: #e94560; margin-bottom: 3px; }
+  .sch-loc { font-size: 12px; color: #a0a0b0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .sch-pref-badge { font-size: 11px; padding: 2px 6px; border-radius: 3px; flex-shrink: 0; font-weight: bold; }
+  .pref-tokyo { background: #1a3a5c; color: #5ab4ff; }
+  .pref-saitama { background: #3a2a00; color: #ffc844; }
+  .pref-kanagawa { background: #0a3a1a; color: #44cc88; }
+  .pref-chiba { background: #3a1a2a; color: #ff88bb; }
 
   #count-bar {
     background: #16213e;
@@ -519,6 +550,73 @@ function renderSchedule() {
         </div>
         <span class="sch-pref-badge ${PREF_CLASS_SCH[e.pref]}">${PREF_LABEL_SCH[e.pref]}</span>
       </div>`;
+    });
+  });
+  container.innerHTML = html;
+}
+
+// タブ切替
+function switchTab(tab) {
+  const mapEl = document.getElementById('map');
+  const schEl = document.getElementById('schedule');
+  const tabMap = document.getElementById('tab-map');
+  const tabSch = document.getElementById('tab-schedule');
+  if (tab === 'map') {
+    mapEl.style.display = '';
+    schEl.style.display = 'none';
+    tabMap.classList.add('active');
+    tabSch.classList.remove('active');
+    if (window._leafletMap) window._leafletMap.invalidateSize();
+  } else {
+    mapEl.style.display = 'none';
+    schEl.style.display = '';
+    tabMap.classList.remove('active');
+    tabSch.classList.add('active');
+    renderSchedule();
+  }
+}
+
+const CAL_EVENTS = [
+  { date: "2026-06-08", start: "14:00", end: "16:00", name: "断酒学級", location: "安房健康福祉センター（館山市）", pref: "chiba" },
+  { date: "2026-06-08", start: "18:30", end: "20:00", name: "青葉支部", location: "横浜市もえぎ野地域ケアプラザ", pref: "kanagawa" },
+  { date: "2026-06-08", start: "19:00", end: "21:00", name: "国立矢川例会", location: "日商岩井国立マンション集会場", pref: "tokyo" },
+  { date: "2026-06-09", start: "18:25", end: "20:25", name: "つくも例会（本納）", location: "ほのおか館（茂原市）", pref: "chiba" },
+  { date: "2026-06-09", start: "18:45", end: "20:30", name: "保土ケ谷支部", location: "横浜市星川地域ケアプラザ", pref: "kanagawa" },
+  { date: "2026-06-09", start: "19:00", end: "21:00", name: "小平例会", location: "小川西町公民館（小平市）", pref: "tokyo" },
+  { date: "2026-06-10", start: "13:00", end: "16:00", name: "立川酒害相談", location: "立川市社会福祉協議会", pref: "tokyo" },
+  { date: "2026-06-10", start: "18:30", end: "20:00", name: "南支部", location: "横浜市大岡地域ケアプラザ", pref: "kanagawa", note: "スリッパ持参" },
+  { date: "2026-06-10", start: "18:30", end: "20:30", name: "柏例会（旭町）", location: "柏市旭町近隣センター", pref: "chiba" },
+  { date: "2026-06-10", start: "18:30", end: "20:30", name: "浦安例会", location: "浦安市中央公民館", pref: "chiba" },
+  { date: "2026-06-10", start: "19:00", end: "20:30", name: "大宮例会", location: "シーノ大宮サウスウィング", pref: "saitama", note: "会場変更" },
+  { date: "2026-06-10", start: "19:00", end: "21:00", name: "ひまわりの会", location: "日商岩井国立マンション集会場", pref: "tokyo", note: "女性のみ" },
+  { date: "2026-06-11", start: "13:00", end: "15:30", name: "こころの広場", location: "下落合コミュニティセンター（さいたま市）", pref: "saitama" },
+  { date: "2026-06-11", start: "18:00", end: "19:00", name: "院内例会（大石クリニック）", location: "大石クリニック（横浜市中区）", pref: "kanagawa" },
+  { date: "2026-06-11", start: "18:30", end: "20:30", name: "千葉例会（幕張公民館）", location: "幕張公民館（千葉市）", pref: "chiba" },
+  { date: "2026-06-11", start: "19:00", end: "21:00", name: "昭島例会", location: "昭島市昭和会館", pref: "tokyo" },
+  { date: "2026-06-12", start: "13:00", end: "15:00", name: "横浜酒害相談", location: "かながわ県民センター12階", pref: "kanagawa" },
+  { date: "2026-06-12", start: "18:30", end: "20:30", name: "鎌ケ谷例会（白井）", location: "白井市保健福祉センター", pref: "chiba" },
+  { date: "2026-06-12", start: "18:30", end: "20:30", name: "松戸例会（明市民センタ）", location: "松戸市明市民センター", pref: "chiba" },
+  { date: "2026-06-12", start: "19:30", end: "21:00", name: "神奈川支部", location: "横浜市神奈川区社会福祉協議会", pref: "kanagawa" },
+];
+const DATE_LABELS_SCH = { "2026-06-08":"6月8日（月）","2026-06-09":"6月9日（火）","2026-06-10":"6月10日（水）","2026-06-11":"6月11日（木）","2026-06-12":"6月12日（金）" };
+const PREF_LABEL_SCH = { tokyo:"東京", saitama:"埼玉", kanagawa:"神奈川", chiba:"千葉" };
+const PREF_CLASS_SCH = { tokyo:"pref-tokyo", saitama:"pref-saitama", kanagawa:"pref-kanagawa", chiba:"pref-chiba" };
+const SCH_TODAY = "2026-06-08";
+
+let _schRendered = false;
+function renderSchedule() {
+  if (_schRendered) return;
+  _schRendered = true;
+  const container = document.getElementById('schedule');
+  const byDate = {};
+  CAL_EVENTS.forEach(e => { if (!byDate[e.date]) byDate[e.date] = []; byDate[e.date].push(e); });
+  let html = '';
+  Object.keys(byDate).sort().forEach(date => {
+    const evs = byDate[date];
+    const isToday = date === SCH_TODAY;
+    html += `<div class="sch-date-header"><span>${DATE_LABELS_SCH[date]||date}</span>${isToday?'<span class="sch-date-today">今日</span>':''}<span class="sch-date-count">${evs.length}件</span></div>`;
+    evs.forEach(e => {
+      html += `<div class="sch-card"><div class="sch-time"><div class="sch-time-start">${e.start}</div><div class="sch-time-end">${e.end}</div></div><div class="sch-info"><div class="sch-name">${e.name}${e.note?` <span style="font-size:11px;color:#666;font-weight:normal;">${e.note}</span>`:''}</div><div class="sch-loc">📍 ${e.location}</div></div><span class="sch-pref-badge ${PREF_CLASS_SCH[e.pref]}">${PREF_LABEL_SCH[e.pref]}</span></div>`;
     });
   });
   container.innerHTML = html;
