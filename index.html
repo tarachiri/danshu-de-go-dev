@@ -457,7 +457,7 @@ function switchTab(tab) {
     if (window._leafletMap) window._leafletMap.invalidateSize();
   } else {
     mapEl.style.display = 'none';
-    schEl.style.display = '';
+    schEl.style.display = 'block';
     tabMap.classList.remove('active');
     tabSch.classList.add('active');
     renderSchedule();
