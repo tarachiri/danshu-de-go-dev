@@ -522,6 +522,8 @@ function applyFilters() {
       .bindPopup(buildPopup(v), { maxWidth: 300 });
 
     marker.addTo(map);
+    if (!window._markers) window._markers = {};
+    window._markers[v.id] = marker;
     allMarkers.push(marker);
     count++;
   });
