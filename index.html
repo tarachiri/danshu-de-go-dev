@@ -551,7 +551,36 @@ const isInstalled = window.matchMedia('(display-mode: standalone)').matches;
 const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
 
 if(true){
-
+const btn = document.createElement('button');
+  btn.id = 'mode-toggle-float';
+  btn.innerHTML = '<b>探索モード</b>';
+  btn.style.cssText = `
+    position:fixed;
+    bottom:24px;
+    right:16px;
+    background:#C0392B;
+    color:#fff;
+    border:none;
+    border-radius:24px;
+    padding:10px 18px;
+    font-size: 17px;
+    font-weight:bold;
+    cursor:pointer;
+    z-index:9999;
+    box-shadow:0 4px 16px rgba(0,0,0,0.5);
+  `;
+  btn.onclick = function() {
+    toggleMode();
+    const isExplore = btn.innerHTML.includes('探索');
+    if(isExplore) {
+      btn.innerHTML = '🗺️ 快適モード';
+      btn.style.background = '#27AE60';
+    } else {
+      btn.innerHTML = '<b>探索モード</b>';
+      btn.style.background = '#C0392B';
+    }
+  };
+  document.body.appendChild(btn);
 }
 
 function jumpToMarker(id, lat, lng) {
