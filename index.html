@@ -462,7 +462,7 @@ function jumpToMarker(id, lat, lng) {
           window._markers[id].openPopup();
           const mapHeight = window._leafletMap.getSize().y;
           const markerPoint = window._leafletMap.latLngToContainerPoint([lat, lng]);
-          const targetY = mapHeight * 0.6;
+          const targetY = mapHeight * 0.75;
           const offset = markerPoint.y - targetY;
           window._leafletMap.panBy([0, offset]);
         }
