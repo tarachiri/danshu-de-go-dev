@@ -522,8 +522,6 @@ function applyFilters() {
       .bindPopup(buildPopup(v), { maxWidth: 300 });
 
     marker.addTo(map);
-    if (!window._markers) window._markers = {};
-    window._markers[v.id] = marker;
     allMarkers.push(marker);
     count++;
   });
@@ -586,7 +584,6 @@ const btn = document.createElement('button');
 }
 
 function jumpToMarker(id, lat, lng) {
-  console.log("jumpToMarker called", id, lat, lng);
   switchTab('map');
   currentMode = 'explore';
   const btn = document.getElementById('mode-toggle-float');
@@ -595,16 +592,20 @@ function jumpToMarker(id, lat, lng) {
   document.getElementById('date-filter').value = 'all';
   applyFilters();
   setTimeout(() => {
-    console.log("flyTo called", id, lat, lng);
     if (window._leafletMap) {
       const point = window._leafletMap.latLngToContainerPoint([lat, lng]);
       const newPoint = window._leafletMap.containerPointToLatLng([point.x, point.y - 150]);
       window._leafletMap.flyTo(newPoint, 15, {duration: 0.8});
-      setTimeout(() => {
+      window._leafletMap.once('moveend', () => {
         if (window._markers && window._markers[id]) {
           window._markers[id].openPopup();
+          const mapHeight = window._leafletMap.getSize().y;
+          const markerPoint = window._leafletMap.latLngToContainerPoint([lat, lng]);
+          const targetY = mapHeight * 0.75;
+          const offset = markerPoint.y - targetY;
+          window._leafletMap.panBy([0, offset]);
         }
-      }, 1000);
+      });
     }
   }, 300);
 }
