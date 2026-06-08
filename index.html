@@ -448,7 +448,9 @@ function jumpToMarker(id, lat, lng) {
   switchTab('map');
   setTimeout(() => {
     if (window._leafletMap) {
-      window._leafletMap.flyTo([lat, lng], 15, {duration: 0.8});
+      const point = window._leafletMap.latLngToContainerPoint([lat, lng]);
+      const newPoint = window._leafletMap.containerPointToLatLng([point.x, point.y - 150]);
+      window._leafletMap.flyTo(newPoint, 15, {duration: 0.8});
       if (window._markers && window._markers[id]) {
         window._markers[id].openPopup();
       window._leafletMap.panBy([0, 1000]);
