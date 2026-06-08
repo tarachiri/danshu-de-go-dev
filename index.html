@@ -554,6 +554,33 @@ if(true){
 
 }
 
+function jumpToMarker(id, lat, lng) {
+  switchTab('map');
+  currentMode = 'explore';
+  const btn = document.getElementById('mode-toggle-float');
+  if (btn) { btn.innerHTML = '<b>探索モード</b>'; btn.style.background = '#1a5276'; }
+  document.getElementById('area-filter').value = 'all';
+  document.getElementById('date-filter').value = 'all';
+  applyFilters();
+  setTimeout(() => {
+    if (window._leafletMap) {
+      const point = window._leafletMap.latLngToContainerPoint([lat, lng]);
+      const newPoint = window._leafletMap.containerPointToLatLng([point.x, point.y - 150]);
+      window._leafletMap.flyTo(newPoint, 15, {duration: 0.8});
+      window._leafletMap.once('moveend', () => {
+        if (window._markers && window._markers[id]) {
+          window._markers[id].openPopup();
+          const mapHeight = window._leafletMap.getSize().y;
+          const markerPoint = window._leafletMap.latLngToContainerPoint([lat, lng]);
+          const targetY = mapHeight * 0.75;
+          const offset = markerPoint.y - targetY;
+          window._leafletMap.panBy([0, offset]);
+        }
+      });
+    }
+  }, 300);
+}
+
 // ===スケジュールタブ===
 function switchTab(tab) {
   const mapEl = document.getElementById('map');
