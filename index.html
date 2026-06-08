@@ -507,7 +507,6 @@ function renderSchedule() {
         byDate[d].push(e);
       });
   let html = '';
-  let html = '';
   Object.keys(byDate).sort().forEach(date => {
     const evs = byDate[date];
     const isToday = date === SCH_TODAY;
