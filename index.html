@@ -600,17 +600,11 @@ function jumpToMarker(id, lat, lng) {
       const point = window._leafletMap.latLngToContainerPoint([lat, lng]);
       const newPoint = window._leafletMap.containerPointToLatLng([point.x, point.y - 150]);
       window._leafletMap.flyTo(newPoint, 15, {duration: 0.8});
-      window._leafletMap.once('moveend', () => {
-        console.log("markers keys:", Object.keys(window._markers||{}).slice(0,5), "looking for id:", id, typeof id);
+      setTimeout(() => {
         if (window._markers && window._markers[id]) {
           window._markers[id].openPopup();
-          const mapHeight = window._leafletMap.getSize().y;
-          const markerPoint = window._leafletMap.latLngToContainerPoint([lat, lng]);
-          const targetY = mapHeight * 0.75;
-          const offset = markerPoint.y - targetY;
-          window._leafletMap.panBy([0, offset]);
         }
-      });
+      }, 1000);
     }
   }, 300);
 }
