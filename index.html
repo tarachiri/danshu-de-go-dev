@@ -446,6 +446,8 @@ function buildPopup(v) {
 // マーカージャンプ
 function jumpToMarker(id, lat, lng) {
   switchTab('map');
+  const prefSelect = document.querySelector('#top-bar select');
+  if (prefSelect) { prefSelect.value = 'all'; applyFilters(); }
   setTimeout(() => {
     if (window._leafletMap) {
       const point = window._leafletMap.latLngToContainerPoint([lat, lng]);
