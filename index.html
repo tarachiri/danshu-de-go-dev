@@ -514,7 +514,7 @@ if('serviceWorker' in navigator){
 const isInstalled = window.matchMedia('(display-mode: standalone)').matches;
 const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
 
-if(!isInstalled){
+if(true){
   const btn = document.createElement('button');
   btn.id = 'mode-toggle-float';
   btn.innerHTML = '<b>探索モード</b>';
