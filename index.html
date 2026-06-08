@@ -599,6 +599,7 @@ function jumpToMarker(id, lat, lng) {
       const newPoint = window._leafletMap.containerPointToLatLng([point.x, point.y - 150]);
       window._leafletMap.flyTo(newPoint, 15, {duration: 0.8});
       window._leafletMap.once('moveend', () => {
+        console.log("markers keys:", Object.keys(window._markers||{}).slice(0,5), "looking for id:", id, typeof id);
         if (window._markers && window._markers[id]) {
           window._markers[id].openPopup();
           const mapHeight = window._leafletMap.getSize().y;
