@@ -586,6 +586,7 @@ const btn = document.createElement('button');
 }
 
 function jumpToMarker(id, lat, lng) {
+  console.log("jumpToMarker called", id, lat, lng);
   switchTab('map');
   currentMode = 'explore';
   const btn = document.getElementById('mode-toggle-float');
