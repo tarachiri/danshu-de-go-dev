@@ -190,6 +190,92 @@ body { font-family: -apple-system, sans-serif; background: #1a1a2e; color: #fff;
 </head>
 <body>
 
+<!-- スプラッシュオーバーレイ -->
+<div id="splash-overlay" onclick="this.classList.add('fade-out'); setTimeout(()=>this.remove(),600)">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;500;700&family=Noto+Sans+JP:wght@300;400&display=swap');
+    #splash-overlay {
+      position: fixed; inset: 0;
+      width: 100vw; height: 100dvh;
+      background: #1a1a2e;
+      z-index: 9999;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: space-between;
+      padding: 10vh 32px 8vh;
+      cursor: pointer;
+      transition: opacity 0.6s ease;
+      overflow: hidden;
+    }
+    #splash-overlay.fade-out { opacity: 0; pointer-events: none; }
+    .sp-top { display:flex; flex-direction:column; align-items:center; }
+    .sp-deco { width:1px; height:40px; background:linear-gradient(to bottom,transparent,rgba(180,140,80,0.6)); margin-bottom:20px; }
+    .sp-kana { font-family:'Noto Sans JP',sans-serif; font-size:10px; font-weight:300; letter-spacing:.35em; color:rgba(180,140,80,0.7); margin-bottom:14px; }
+    .sp-title { font-family:'Noto Serif JP',serif; font-size:52px; font-weight:700; color:#f0e8d0; letter-spacing:.12em; line-height:1; margin-bottom:6px; }
+    .sp-sub { font-family:'Noto Serif JP',serif; font-size:13px; font-weight:300; color:rgba(240,232,208,0.45); letter-spacing:.3em; margin-bottom:20px; }
+    .sp-runner { font-size:56px; line-height:1; margin-bottom:8px; }
+    .sp-tagline { font-family:'Noto Sans JP',sans-serif; font-size:11px; font-weight:300; color:rgba(240,232,208,0.4); letter-spacing:.22em; text-align:center; line-height:1.9; }
+    .sp-divider { width:48px; height:1px; background:rgba(180,140,80,0.3); }
+    .sp-qr { display:flex; flex-direction:column; align-items:center; gap:12px; }
+    .sp-qr-frame { background:#f0e8d0; border-radius:12px; padding:12px; }
+    .sp-qr-label { font-family:'Noto Sans JP',sans-serif; font-size:10px; font-weight:300; color:rgba(240,232,208,0.35); letter-spacing:.3em; text-align:center; }
+    .sp-btn {
+      position:relative; width:280px; padding:18px 0; border-radius:50px;
+      border:1.5px solid rgba(180,140,80,0.7); background:rgba(180,140,80,0.1);
+      display:flex; align-items:center; justify-content:center; gap:10px;
+      overflow:hidden;
+    }
+    .sp-btn::before {
+      content:''; position:absolute; inset:0; border-radius:50px;
+      border:1px solid rgba(180,140,80,0.5);
+      animation:sp-pulse 2.4s ease-out infinite;
+    }
+    @keyframes sp-pulse { 0%{transform:scale(1);opacity:.7} 70%,100%{transform:scale(1.12);opacity:0} }
+    .sp-btn-text { font-family:'Noto Serif JP',serif; font-size:17px; font-weight:500; color:#f0e8d0; letter-spacing:.22em; }
+    .sp-btn-arrow { font-size:18px; color:rgba(180,140,80,0.9); animation:sp-nudge 1.8s ease-in-out infinite; }
+    @keyframes sp-nudge { 0%,100%{transform:translateX(0)} 50%{transform:translateX(4px)} }
+    .sp-bottom { display:flex; flex-direction:column; align-items:center; gap:4px; }
+    .sp-org { font-family:'Noto Sans JP',sans-serif; font-size:10px; font-weight:300; color:rgba(240,232,208,0.2); letter-spacing:.3em; }
+    .sp-ver { font-family:'Noto Sans JP',sans-serif; font-size:9px; font-weight:300; color:rgba(180,140,80,0.35); letter-spacing:.2em; }
+  </style>
+  <div class="sp-top">
+    <div class="sp-deco"></div>
+    <p class="sp-kana">断酒支援 · 全国例会場マップ</p>
+    <div class="sp-title">断酒でGO</div>
+    <div class="sp-sub">dansyu-go</div>
+    <div class="sp-runner">🏃</div>
+    <p class="sp-tagline">全国の断酒会・AAミーティング<br>例会場をひとつの地図に</p>
+  </div>
+  <div class="sp-divider"></div>
+  <div class="sp-qr">
+    <div class="sp-qr-frame"><canvas id="sp-qr-canvas" width="140" height="140"></canvas></div>
+    <p class="sp-qr-label">読み取って今すぐ開く</p>
+  </div>
+  <div class="sp-btn">
+    <span class="sp-btn-text">タッチして開始！</span>
+    <span class="sp-btn-arrow">→</span>
+  </div>
+  <div class="sp-bottom">
+    <p class="sp-org">ぬか床の会</p>
+    <p class="sp-ver">V 5.0 2</p>
+  </div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script>
+(function(){
+  var d=document.createElement('div');
+  d.style.cssText='visibility:hidden;position:absolute;';
+  document.body.appendChild(d);
+  new QRCode(d,{text:'https://dansyu-go.nukadokonokai.com/',width:140,height:140,colorDark:'#1a1a2e',colorLight:'#f0e8d0',correctLevel:QRCode.CorrectLevel.M});
+  setTimeout(function(){
+    var c=d.querySelector('canvas');
+    var t=document.getElementById('sp-qr-canvas');
+    if(c&&t)t.getContext('2d').drawImage(c,0,0);
+    document.body.removeChild(d);
+  },300);
+})();
+</script>
+
+
 <div id="header">
   <div id="top-bar">
     <span id="title">🏃 断酒<span style="font-size: 15px;">で</span>GO</span>
