@@ -446,6 +446,9 @@ function buildPopup(v) {
 // マーカージャンプ
 function jumpToMarker(id, lat, lng) {
   switchTab('map');
+  currentMode = 'explore';
+  const btn = document.getElementById('mode-toggle-float');
+  if (btn) { btn.innerHTML = '<b>探索モード</b>'; btn.style.background = '#1a5276'; }
   document.getElementById('area-filter').value = 'all';
   document.getElementById('date-filter').value = 'all';
   applyFilters();
