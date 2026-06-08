@@ -451,7 +451,7 @@ function jumpToMarker(id, lat, lng) {
       window._leafletMap.flyTo([lat, lng], 15, {duration: 0.8});
       if (window._markers && window._markers[id]) {
         window._markers[id].openPopup();
-      window._leafletMap.panBy([0, 200]);
+      window._leafletMap.panBy([0, 500]);
       }
     }
   }, 300);
