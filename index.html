@@ -443,6 +443,19 @@ function buildPopup(v) {
   `;
 }
 
+// マーカージャンプ
+function jumpToMarker(id, lat, lng) {
+  switchTab('map');
+  setTimeout(() => {
+    if (window._leafletMap) {
+      window._leafletMap.flyTo([lat, lng], 15, {duration: 0.8});
+      if (window._markers && window._markers[id]) {
+        window._markers[id].openPopup();
+      }
+    }
+  }, 300);
+}
+
 // タブ切替
 function switchTab(tab) {
   const mapEl = document.getElementById('map');
@@ -514,7 +527,7 @@ function renderSchedule() {
     html += `<div class="sch-date-header"><span>${label}</span>${isToday?'<span class="sch-date-today">今日</span>':''}<span class="sch-date-count">${evs.length}件</span></div>`;
     evs.forEach(e => {
       const pref = e.prefecture === '東京都' ? 'tokyo' : e.prefecture === '埼玉県' ? 'saitama' : e.prefecture === '神奈川県' ? 'kanagawa' : 'chiba';
-      html += `<div class="sch-card"><div class="sch-time"><div class="sch-time-start">${e.start_time||''}</div><div class="sch-time-end" style="font-size:14px;color:#888;">${e.end_time||''}</div></div><div class="sch-info"><div class="sch-name">${e.meeting_name}</div><div class="sch-loc">📍 ${e.address||''}</div></div><span class="sch-pref-badge ${PREF_CLASS_SCH[pref]}">${PREF_LABEL_SCH[pref]}</span></div>`;
+      html += `<div class="sch-card" onclick="jumpToMarker(${e.id}, ${e.latitude}, ${e.longitude})" style="cursor:pointer;"><div class="sch-time"><div class="sch-time-start">${e.start_time||''}</div><div class="sch-time-end" style="font-size:14px;color:#888;">${e.end_time||''}</div></div><div class="sch-info"><div class="sch-name">${e.meeting_name}</div><div class="sch-loc">📍 ${e.address||''}</div></div><span class="sch-pref-badge ${PREF_CLASS_SCH[pref]}">${PREF_LABEL_SCH[pref]}</span></div>`;
     });
   });
   container.innerHTML = html;
@@ -602,6 +615,10 @@ function applyFilters() {
 
     marker.addTo(map);
     allMarkers.push(marker);
+    if (!window._markers) window._markers = {};
+    window._markers[v.id] = marker;
+    if (!window._markers) window._markers = {};
+    window._markers[v.id] = marker;
     count++;
   });
 
