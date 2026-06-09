@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>栃木県断酒ホトトギス会</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Hiragino Sans','Noto Sans JP',sans-serif;background:#f0f2f5;color:#1a1a1a;font-size:15px}
+.wrap{max-width:480px;margin:0 auto;padding:0 0 2rem}
+
+.header{background:#2a5298;padding:1.25rem 1rem 1rem;text-align:center}
+.header-pref{font-size:12px;color:#a8c8f0;margin-bottom:2px}
+.header-name{font-size:22px;font-weight:600;color:#fff}
+.header-sub{font-size:11px;color:#b8d0f0;margin-top:3px}
+.header-lead{margin-top:10px;font-size:13px;color:#d0e8ff;line-height:1.7}
+
+.sec-label{font-size:11px;font-weight:600;color:#666;letter-spacing:.08em;margin:1.25rem 0 6px;padding:0 12px}
+
+.card{background:#fff;border-radius:12px;overflow:hidden;margin:0 8px 10px;box-shadow:0 1px 3px rgba(0,0,0,.08)}
+.card-head{padding:10px 14px;background:#f5f7fa;font-size:13px;font-weight:600;color:#333;border-bottom:1px solid #eee}
+
+/* カレンダー */
+.cal-entry{padding:12px 14px;border-bottom:1px solid #f0f0f0}
+.cal-entry:last-child{border-bottom:none}
+.cal-name{font-size:14px;font-weight:600;color:#1a1a1a;margin-bottom:3px}
+.cal-rule{font-size:13px;font-weight:400;color:#2a5298}
+.cal-place{font-size:12px;color:#666;margin-bottom:6px}
+.cal-dates{background:#f0f4ff;border-radius:6px;padding:6px 10px;margin-bottom:6px}
+.cal-date-row{display:flex;align-items:center;gap:10px;padding:3px 0;border-bottom:1px solid #e0e8ff}
+.cal-date-row:last-child{border-bottom:none}
+.cal-d{font-size:14px;font-weight:600;color:#2a5298;min-width:70px}
+.cal-wd{font-size:12px;color:#666}
+.cal-btns{display:flex;gap:6px;flex-wrap:wrap}
+
+/* 相談 */
+.contact-block{padding:12px 14px;border-bottom:1px solid #f0f0f0}
+.contact-block:last-child{border-bottom:none}
+.contact-name{font-size:13px;font-weight:600;color:#1a1a1a;margin-bottom:6px}
+.contact-row{display:flex;gap:6px;font-size:12px;margin-bottom:3px;align-items:flex-start}
+.contact-lab{width:40px;flex-shrink:0;color:#888;font-weight:600}
+.contact-val{color:#333;word-break:break-all}
+
+/* 例会 */
+.meeting-group{background:#fff;border-radius:12px;overflow:hidden;margin:0 8px 8px;box-shadow:0 1px 3px rgba(0,0,0,.08)}
+.group-head{padding:10px 14px;background:#f5f7fa;font-size:13px;font-weight:600;color:#333;border-bottom:1px solid #eee}
+.group-body{padding:8px 14px 10px}
+.branch-row{display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid #f5f5f5;font-size:13px}
+.branch-row:last-of-type{border-bottom:none}
+.branch-name{font-weight:500;color:#1a1a1a}
+.branch-day{font-size:12px;color:#2a5298;font-weight:500}
+.branch-addr{font-size:11px;color:#888;margin:-2px 0 4px;padding-left:2px}
+.branch-note{font-size:11px;color:#999;margin-top:6px}
+.badge-pause{font-size:11px;padding:2px 7px;border-radius:4px;background:#fff3e0;color:#e65100;font-weight:600}
+
+/* ボタン */
+.tel-btn{display:inline-flex;align-items:center;gap:4px;background:#e8f0fe;color:#1a56a0;border-radius:6px;padding:5px 10px;font-size:12px;text-decoration:none;font-weight:600}
+.pdf-btn{display:inline-flex;align-items:center;gap:4px;background:#fff8e1;color:#9a6700;border-radius:6px;padding:5px 10px;font-size:12px;text-decoration:none;font-weight:600}
+.icon{font-size:13px}
+
+/* フッター */
+.footer{margin:1rem 8px 0;padding:10px 14px;background:#fff;border-radius:10px;font-size:11px;color:#999;text-align:center;line-height:2}
+.footer a{color:#2a5298;text-decoration:none}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="header">
+    <div class="header-pref">栃木県</div>
+    <div class="header-name">断酒ホトトギス会</div>
+    <div class="header-sub">鳴かぬなら 鳴くまで待とう ホトトギス</div>
+    <div class="header-lead">酒害・断酒・回復、そして新しい人生へ。<br>お酒でお困りの方、ご相談ください。</div>
+  </div>
+
+  <div class="sec-label">例会カレンダー（酒害相談・昼例会）</div>
+  <div class="card">
+    
+    <div class="cal-entry">
+      <div class="cal-name">宇都宮断酒会　<span class="cal-rule">毎月第3金曜</span></div>
+      <div class="cal-place">とちぎ福祉プラザ403会議室（宇都宮市若草1-10-6）　午後2:00〜4:00</div>
+      
+      <div class="cal-btns">
+        <a href="tel:028-621-2940" class="tel-btn"><span class="icon">📞</span>028-621-2940</a>
+        
+      </div>
+    </div>
+
+    <div class="cal-entry">
+      <div class="cal-name">北部断酒会　<span class="cal-rule">毎月第3日曜</span></div>
+      <div class="cal-place">大田原市生涯学習センター（大田原市本町1丁目2716-5）　午後2:00〜4:00</div>
+      
+      <div class="cal-btns">
+        <a href="tel:0287-23-2003" class="tel-btn"><span class="icon">📞</span>0287-23-2003</a>
+        
+      </div>
+    </div>
+
+    <div class="cal-entry">
+      <div class="cal-name">南部断酒会　<span class="cal-rule">毎月第3火曜</span></div>
+      <div class="cal-place">真岡市市民活動推進センター（コラボーレもうか）　午後2:00〜4:00</div>
+      
+      <div class="cal-btns">
+        <a href="tel:0285-81-5522" class="tel-btn"><span class="icon">📞</span>0285-81-5522</a>
+        
+      </div>
+    </div>
+
+    <div class="cal-entry">
+      <div class="cal-name">西部断酒会　<span class="cal-rule">毎月第1水曜</span></div>
+      <div class="cal-place">鹿沼市総合福祉センター　午後2:00〜4:00</div>
+      
+      <div class="cal-btns">
+        <a href="tel:0289-65-5191" class="tel-btn"><span class="icon">📞</span>0289-65-5191</a>
+        
+      </div>
+    </div>
+
+    <div class="cal-entry">
+      <div class="cal-name">両毛断酒会　<span class="cal-rule">随時</span></div>
+      <div class="cal-place">青木病院（足利市本城1丁目）</div>
+      
+      <div class="cal-btns">
+        <a href="tel:0284-41-2213" class="tel-btn"><span class="icon">📞</span>0284-41-2213</a>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="sec-label">酒害相談窓口</div>
+  <div class="card">
+    <div class="contact-block">
+      <div class="contact-name">常設酒害相談事務所</div>
+      <div class="contact-row"><span class="contact-lab">住所</span><span class="contact-val">宇都宮市下ケ橋町2480</span></div>
+      <div class="contact-row"><span class="contact-lab">TEL</span><span class="contact-val">028-678-9969</span></div>
+      <div class="contact-row"><span class="contact-lab">FAX</span><span class="contact-val">028-678-9863</span></div>
+      <div class="contact-row"><span class="contact-lab">Mail</span><span class="contact-val">dansyu-hototogisukai@outlook.jp</span></div>
+      <div class="contact-row"><span class="contact-lab">担当</span><span class="contact-val">小林 茂・前澤 清</span></div>
+      <div style="margin-top:8px"><a href="tel:028-678-9969" class="tel-btn"><span class="icon">📞</span>電話する</a></div>
+    </div>
+  </div>
+
+  <div class="sec-label">例会情報（毎週開催・午後7〜9時）</div>
+  <div style="padding:0 0 4px;font-size:12px;color:#888;padding:0 12px 6px">事前にご連絡いただくとより参加しやすいです。</div>
+  
+    <div class="meeting-group">
+      <div class="group-head">宇都宮断酒会</div>
+      <div class="group-body">
+        
+        <div class="branch-row">
+          <span class="branch-name">平石支部</span>
+          <span class="branch-day">第1・第3 火曜</span>
+        </div>
+        <div class="branch-addr">平石地区市民センター（宇都宮市平出町158-1）</div>
+        <div class="branch-row">
+          <span class="branch-name">中央支部</span>
+          <span class="branch-day">毎週 木曜</span>
+        </div>
+        <div class="branch-addr">中央生涯学習センター（宇都宮中央1-11-13）</div>
+        <div class="branch-row">
+          <span class="branch-name">姿川支部</span>
+          <span class="branch-day">毎週 土曜</span>
+        </div>
+        <div class="branch-addr">姿川地区市民センター（宇都宮市西川田町805-1）</div>
+        
+      </div>
+    </div>
+
+    <div class="meeting-group">
+      <div class="group-head">北部断酒会</div>
+      <div class="group-body">
+        
+        <div class="branch-row">
+          <span class="branch-name">大田原支部</span>
+          <span class="branch-day">毎週 水曜*</span>
+        </div>
+        <div class="branch-addr">大田原市生涯学習センター（大田原市本町1-3）</div>
+        <div class="branch-row">
+          <span class="branch-name">那須塩原支部</span>
+          <span class="branch-day">毎週 金曜*</span>
+        </div>
+        <div class="branch-addr">西那須野公民館（那須塩原市太夫塚1-194-78）</div>
+        <div class="branch-row">
+          <span class="branch-name">矢板支部</span>
+          <span class="branch-day">毎週 水曜*</span>
+        </div>
+        <div class="branch-addr">矢板公民館（矢板市本町5-4）</div>
+        <div class="branch-row">
+          <span class="branch-name">氏家支部</span>
+          <span class="branch-day">毎週 土曜</span>
+        </div>
+        <div class="branch-addr">上河内地区市民センター（宇都宮市中里町181-3）</div>
+        <div class="branch-row">
+          <span class="branch-name">烏山支部</span>
+          <span class="branch-day">毎週 土曜</span>
+        </div>
+        <div class="branch-addr">烏山南公民館（那須烏山市野上703）</div>
+        <div class="branch-note">*合同例会（第3水曜）週は除く</div>
+      </div>
+    </div>
+
+    <div class="meeting-group">
+      <div class="group-head">西部断酒会</div>
+      <div class="group-body">
+        
+        <div class="branch-row">
+          <span class="branch-name">鹿沼支部</span>
+          <span class="branch-day">毎週 木曜</span>
+        </div>
+        <div class="branch-addr">鹿沼市民情報センター（鹿沼市文化橋1982-18）</div>
+        <div class="branch-row">
+          <span class="branch-name">日光支部</span>
+          <span class="badge-pause">休止中</span>
+        </div>
+        <div class="branch-addr">→ 鹿沼支部へお越しください</div>
+        
+      </div>
+    </div>
+
+    <div class="meeting-group">
+      <div class="group-head">南部断酒会</div>
+      <div class="group-body">
+        
+        <div class="branch-row">
+          <span class="branch-name">真岡支部</span>
+          <span class="branch-day">毎週 土曜</span>
+        </div>
+        <div class="branch-addr">真岡公民館（真岡市荒町1201）</div>
+        
+      </div>
+    </div>
+
+    <div class="meeting-group">
+      <div class="group-head">両毛断酒会</div>
+      <div class="group-body">
+        
+        <div class="branch-row">
+          <span class="branch-name">足利支部</span>
+          <span class="branch-day">第1・第3 水曜</span>
+        </div>
+        <div class="branch-addr">青木病院（足利市本城1-1560）</div>
+        
+      </div>
+    </div>
+
+  <div class="footer">
+    情報は公式サイトより自動取得（毎週月曜更新）<br>
+    <a href="https://dansyu-tochigiken.jp" target="_blank">公式サイト</a>　|　
+    <a href="https://tochigi-izon.portalsite.pref.tochigi.lg.jp/" target="_blank">とちぎ依存症ポータル</a><br>
+    <span style="color:#bbb">生成: 2026年06月09日 06:15</span>
+  </div>
+
+</div>
+</body>
+</html>
