@@ -7,7 +7,7 @@
 <title>断酒でGO - 例会場マップ</title>
 <link rel="manifest" href="manifest.json">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-title" content="断GO">
+<meta name="apple-mobile-web-app-title" content="断酒でGO!!">
 <link rel="apple-touch-icon" href="icon-192.png">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
@@ -32,23 +32,23 @@
       background: #1a1a2e;
       z-index: 9999;
       display: flex; flex-direction: column;
-      align-items: center; justify-content: flex-start; gap: 14px;
-      padding: 8vh 32px 4vh;
+      align-items: center; justify-content: flex-start; gap: 8px;
+      padding: 5vh 32px 3vh;
       cursor: pointer;
       transition: opacity 0.6s ease;
       overflow: hidden;
     }
     #splash-overlay.fade-out { opacity: 0; pointer-events: none; }
     .sp-top { display:flex; flex-direction:column; align-items:center; }
-    .sp-deco { width:1px; height:40px; background:linear-gradient(to bottom,transparent,rgba(180,140,80,0.6)); margin-bottom:20px; }
+    .sp-deco { width:1px; height:24px; background:linear-gradient(to bottom,transparent,rgba(180,140,80,0.6)); margin-bottom:20px; }
     .sp-kana { font-family:'Noto Sans JP',sans-serif; font-size:13px; font-weight:300; letter-spacing:.35em; color:rgba(180,140,80,0.7); margin-bottom:14px; }
     .sp-title { font-family:'Noto Serif JP',serif; font-size:38px; font-weight:700; color:#f0e8d0; letter-spacing:.12em; line-height:1; margin-bottom:6px; }
     .sp-sub { font-family:'Noto Serif JP',serif; font-size:15px; font-weight:300; color:rgba(240,232,208,0.45); letter-spacing:.3em; margin-bottom:20px; }
-    .sp-runner { font-size:56px; line-height:1; margin-bottom:8px; }
+    .sp-runner { font-size:40px; line-height:1; margin-bottom:8px; }
     .sp-tagline { font-family:'Noto Sans JP',sans-serif; font-size:13px; font-weight:300; color:rgba(240,232,208,0.4); letter-spacing:.22em; text-align:center; line-height:1.9; }
     .sp-divider { width:48px; height:1px; background:rgba(180,140,80,0.3); }
     .sp-qr { display:flex; flex-direction:column; align-items:center; gap:12px; }
-    .sp-qr-frame { background:#f0e8d0; border-radius:12px; padding:12px; }
+    .sp-qr-frame { background:#f0e8d0; border-radius:12px; padding:8px; }
     .sp-qr-label { font-family:'Noto Sans JP',sans-serif; font-size:12px; font-weight:300; color:rgba(240,232,208,0.35); letter-spacing:.3em; text-align:center; }
     .sp-btn {
       position:relative; width:280px; padding:18px 0; border-radius:50px;
@@ -110,7 +110,7 @@
 
 <div id="header">
   <div id="top-bar">
-    <span id="title">🏃 断酒<span style="font-size: 15px;">で</span>GO</span>
+    <span id="title">🏃 断酒でGO!!</span>
     <select id="date-filter" onchange="applyFilters()">
       <option value="all">📅 全日付</option>
       <option value="today">今日</option>
