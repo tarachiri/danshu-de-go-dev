@@ -196,7 +196,7 @@ if('serviceWorker' in navigator){
 
 const btn = document.createElement('button');
   btn.id = 'mode-toggle-float';
-  btn.innerHTML = '<b>探索モード</b>';
+  btn.innerHTML = '<b>快適モード</b>';
   btn.style.cssText = `
     position:fixed;
     bottom:24px;
@@ -214,14 +214,6 @@ const btn = document.createElement('button');
   `;
   btn.onclick = function() {
     toggleMode();
-    const isExplore = btn.innerHTML.includes('探索');
-    if(isExplore) {
-      btn.innerHTML = '🗺️ 快適モード';
-      btn.style.background = '#27AE60';
-    } else {
-      btn.innerHTML = '<b>探索モード</b>';
-      btn.style.background = '#C0392B';
-    }
   };
   document.body.appendChild(btn);
 
