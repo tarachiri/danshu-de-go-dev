@@ -1,12 +1,23 @@
-const map = window._leafletMap = L.map('map', {zoomControl: false}).setView([35.68, 139.60], 9);
+// JSTで今日の日付文字列を返すヘルパー
+function getTodayJST() {
+  const now = new Date();
+  const jst = new Date(now.getTime() + 9 * 60 * 60 * 1000);
+  return jst.toISOString().split('T')[0];
+}
+function getTomorrowJST() {
+  const now = new Date();
+  const jst = new Date(now.getTime() + (9 + 24) * 60 * 60 * 1000);
+  return jst.toISOString().split('T')[0];
+}
+
 L.control.zoom({position: 'bottomleft'}).addTo(map);
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
   attribution: '© OpenStreetMap contributors'
 }).addTo(map);
 
-const TODAY    = new Date().toISOString().split('T')[0];
-const TOMORROW = new Date(Date.now() + 86400000).toISOString().split('T')[0];
-const DAY_AFTER= new Date(Date.now() + 172800000).toISOString().split('T')[0];
+const TODAY    = getTodayJST();
+const TOMORROW = getTomorrowJST();
+const DAY_AFTER= new Date(new Date().getTime() + (9 + 48) * 60 * 60 * 1000).toISOString().split('T')[0];
 // エリアカラー（その他用）
 const AREA_COLORS = {
   '東京都':  '#1A5276',
@@ -189,7 +200,7 @@ function switchTab(tab) {
 const DATE_LABELS_SCH = { "2026-06-08":"6月8日（月）","2026-06-09":"6月9日（火）","2026-06-10":"6月10日（水）","2026-06-11":"6月11日（木）","2026-06-12":"6月12日（金）" };
 const PREF_LABEL_SCH = { tokyo:"東京", saitama:"埼玉", kanagawa:"神奈川", chiba:"千葉" };
 const PREF_CLASS_SCH = { tokyo:"pref-tokyo", saitama:"pref-saitama", kanagawa:"pref-kanagawa", chiba:"pref-chiba" };
-const SCH_TODAY = "2026-06-08";
+const SCH_TODAY = getTodayJST();
 
 let _schRendered = false;
 function renderSchedule() {
