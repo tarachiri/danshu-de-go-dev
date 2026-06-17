@@ -78,18 +78,15 @@ function formatDate(d) {
 }
 
 function buildPopup(v) {
-  let label = getDateLabel(v.next_date);
+  const label = getDateLabel(v.next_date);
   const badgeColors = {
     today: '#C0392B', tomorrow: '#D35400',
-    dayafter: '#9A7D0A', other: '#555', none: '#888',
-    exception: '#C0392B'
+    dayafter: '#9A7D0A', other: '#555', none: '#888'
   };
   const badgeTexts = {
     today: '今日開催！', tomorrow: '明日開催', dayafter: '明後日開催',
-    other: '開催予定あり', none: '日程未定',
-    exception: '⚠️ 要確認'
+    other: '開催予定あり', none: '日程未定'
   };
-  if (v.has_exception) { label = 'exception'; }
   const typeEmoji = {
     'シングル': '💍', 'アメシスト': '💜', '家族': '👨‍👩‍👧', '相談': '💬', '本部': '🏛️'
   };
@@ -105,8 +102,8 @@ function buildPopup(v) {
   const emoji = typeEmoji[v.meeting_type] || '🍶';
 
   // Googleカレンダーリンク
-  const calLink = v.calendar_url
-    ? `<a href="${v.calendar_url}" target="_blank" class="popup-link" style="background:#27AE60;color:#fff">📅 公式<br>カレンダー</a>`
+  const calLink = v.htmlLink
+    ? `<a href="${v.htmlLink}" target="_blank" class="popup-link cal-link">📅 Googleカレンダーで見る</a>`
     : '';
 
   // Google Maps経路リンク
@@ -133,18 +130,18 @@ function buildPopup(v) {
 
   return `
     <div class="popup-box">
-      <span class="popup-badge ${label === 'exception' ? 'exception-badge' : ''}" style="background:${badgeColors[label]}">${badgeTexts[label]}</span>
+      <span class="popup-badge" style="background:${badgeColors[label]}">${badgeTexts[label]}</span>
       <div class="popup-name">${emoji} ${name}</div>
       ${facility && facility !== name ? `<div class="popup-facility">🏢 ${facility}${building ? ' ' + building : ''}</div>` : ''}
       ${addr ? `<div class="popup-address">📍 ${addr}</div>` : ''}
-      ${!v.has_exception && dateStr ? `<div class="popup-date" style="color:${badgeColors[label]}">📅 ${dateStr} ${timeStr}</div>` : ''}
-      ${!v.has_exception && v.recurrence ? `<div class="popup-recurrence">🔁 ${v.recurrence}</div>` : ''}
+      ${dateStr ? `<div class="popup-date" style="color:${badgeColors[label]}">📅 ${dateStr} ${timeStr}</div>` : ''}
+      ${v.recurrence ? `<div class="popup-recurrence">🔁 ${v.recurrence}</div>` : ''}
 
       
       ${v.contact_phone && false ? `<div class="popup-phone">📞 ${v.contact_phone}</div>` : ''}
 
-      ${v.has_exception && v.exc_note ? `<div class="popup-exception-note">📢 ${v.exc_note}</div>` : ''}
       <div class="popup-links">
+                ${v.official_url ? `<a href="${v.official_url}" target="_blank" class="popup-link" style="background:#27AE60;color:#fff">🌐公式<br>サイト</a>` : ''}
         ${calLink}
         ${mapsLink}
       </div>
@@ -152,24 +149,12 @@ function buildPopup(v) {
   `;
 }
 
-// 座標から最寄りマーカーを探す（id不一致時のフォールバック）
-function findMarkerByCoords(lat, lng) {
-  let best = null, bestD = Infinity;
-  const ms = window._markers || {};
-  for (const key in ms) {
-    const ll = ms[key].getLatLng();
-    const d = Math.abs(ll.lat - lat) + Math.abs(ll.lng - lng);
-    if (d < bestD) { bestD = d; best = ms[key]; }
-  }
-  return bestD < 0.001 ? best : null;
-}
-
 // マーカージャンプ
-function jumpToMarker(id, lat, lng, name) {
-  if (!lat || !lng) return;
+function jumpToMarker(id, lat, lng) {
   switchTab('map');
   currentMode = 'explore';
-  updateModeButton();
+  const btn = document.getElementById('mode-toggle-float');
+  if (btn) { btn.innerHTML = '<b>探索モード</b>'; btn.style.background = '#1a5276'; }
   document.getElementById('area-filter').value = 'all';
   document.getElementById('date-filter').value = 'all';
   applyFilters();
@@ -179,18 +164,13 @@ function jumpToMarker(id, lat, lng, name) {
       const newPoint = window._leafletMap.containerPointToLatLng([point.x, point.y - 150]);
       window._leafletMap.flyTo(newPoint, 15, {duration: 0.8});
       window._leafletMap.once('moveend', () => {
-        const m = (window._markers && window._markers[id]) || findMarkerByCoords(lat, lng);
-        if (m) {
-          clusterGroup.zoomToShowLayer(m, () => {
-            m.openPopup();
-            const mapHeight = window._leafletMap.getSize().y;
-            const markerPoint = window._leafletMap.latLngToContainerPoint([lat, lng]);
-            const targetY = mapHeight * 0.75;
-            const offset = markerPoint.y - targetY;
-            window._leafletMap.panBy([0, offset]);
-          });
-        } else if (name) {
-          L.popup().setLatLng([lat, lng]).setContent('<b>' + name + '</b>').openOn(window._leafletMap);
+        if (window._markers && window._markers[id]) {
+          window._markers[id].openPopup();
+          const mapHeight = window._leafletMap.getSize().y;
+          const markerPoint = window._leafletMap.latLngToContainerPoint([lat, lng]);
+          const targetY = mapHeight * 0.75;
+          const offset = markerPoint.y - targetY;
+          window._leafletMap.panBy([0, offset]);
         }
       });
     }
@@ -242,12 +222,11 @@ function renderSchedule() {
   Object.keys(byDate).sort().forEach(date => {
     const evs = byDate[date];
     const isToday = date === SCH_TODAY;
-    const label = date.replace(/^\d{4}-/, '').replace('-', '/') + '（' + ['日','月','火','水','木','金','土'][new Date(date + 'T00:00:00+09:00').getDay()] + '）';
+    const label = date.replace(/^\d{4}-/, '').replace('-', '/') + '（' + ['日','月','火','水','木','金','土'][new Date(date).getDay()] + '）';
     html += `<div class="sch-date-header"><span>${label}</span>${isToday?'<span class="sch-date-today">今日</span>':''}<span class="sch-date-count">${evs.length}件</span></div>`;
     evs.forEach(e => {
       const pref = e.prefecture === '東京都' ? 'tokyo' : e.prefecture === '埼玉県' ? 'saitama' : e.prefecture === '神奈川県' ? 'kanagawa' : 'chiba';
-      const clickAttr = (e.latitude && e.longitude) ? ` onclick="jumpToMarker(${e.id}, ${e.latitude}, ${e.longitude}, '${(e.meeting_name || '').replace(/['"]/g, '')}')" style="cursor:pointer;"` : '';
-      html += `<div class="sch-card"${clickAttr}><div class="sch-time"><div class="sch-time-start">${e.start_time||''}</div><div class="sch-time-end" style="font-size:14px;color:#888;">${e.end_time||''}</div></div><div class="sch-info"><div class="sch-name">${e.meeting_name}</div><div class="sch-loc">📍 ${e.address||''}</div></div><span class="sch-pref-badge ${PREF_CLASS_SCH[pref]}">${PREF_LABEL_SCH[pref]}</span></div>`;
+      html += `<div class="sch-card" onclick="jumpToMarker(${e.id}, ${e.latitude}, ${e.longitude})" style="cursor:pointer;"><div class="sch-time"><div class="sch-time-start">${e.start_time||''}</div><div class="sch-time-end" style="font-size:14px;color:#888;">${e.end_time||''}</div></div><div class="sch-info"><div class="sch-name">${e.meeting_name}</div><div class="sch-loc">📍 ${e.address||''}</div></div><span class="sch-pref-badge ${PREF_CLASS_SCH[pref]}">${PREF_LABEL_SCH[pref]}</span></div>`;
     });
   });
   container.innerHTML = html;
@@ -256,14 +235,7 @@ function renderSchedule() {
 }
 
 let VENUES = [];
-let clusterGroup = L.markerClusterGroup({
-  maxClusterRadius: 10,
-  showCoverageOnHover: false,
-  zoomToBoundsOnClick: true,
-  disableClusteringAtZoom: 14
-});
-map.addLayer(clusterGroup);
-let comfortGroup = L.layerGroup();
+let allMarkers = [];
 let currentMode = 'comfort';
 
 function initVenues() {
@@ -328,7 +300,9 @@ function showInstallGuide() {
 
 function toggleMode() {
   currentMode = currentMode === 'comfort' ? 'explore' : 'comfort';
-  updateModeButton();
+  const btn = document.getElementById('mode-toggle-float');
+  btn.innerHTML = currentMode === 'comfort' ? '<b>快適モード</b>' : '<b>探索モード</b>';
+  btn.style.background = currentMode === 'explore' ? '#1a5276' : '#C0392B';
   applyFilters();
 }
 
@@ -336,18 +310,8 @@ function applyFilters() {
   const dateFilter = document.getElementById('date-filter').value;
   const areaFilter = document.getElementById('area-filter').value;
 
-  // モードに応じてアクティブレイヤーを切替
-  const activeGroup = currentMode === 'comfort' ? comfortGroup : clusterGroup;
-  clusterGroup.clearLayers();
-  comfortGroup.clearLayers();
-  if (currentMode === 'comfort') {
-    if (map.hasLayer(clusterGroup)) map.removeLayer(clusterGroup);
-    if (!map.hasLayer(comfortGroup)) map.addLayer(comfortGroup);
-  } else {
-    if (map.hasLayer(comfortGroup)) map.removeLayer(comfortGroup);
-    if (!map.hasLayer(clusterGroup)) map.addLayer(clusterGroup);
-  }
-  window._markers = {};
+  allMarkers.forEach(m => map.removeLayer(m));
+  allMarkers = [];
 
   let count = 0;
   VENUES.forEach(v => {
@@ -368,7 +332,9 @@ function applyFilters() {
     const marker = L.marker([v.lat, v.lng], { icon: makeIcon(v) })
       .bindPopup(buildPopup(v), { maxWidth: 300 });
 
-    activeGroup.addLayer(marker);
+    marker.addTo(map);
+    allMarkers.push(marker);
+    if (!window._markers) window._markers = {};
     window._markers[v.id] = marker;
     count++;
   });
@@ -390,65 +356,19 @@ let todayCount=0, tomorrowCount=0, dayafterCount=0;
 
 initVenues();
 
-
-// ===== モード切替ボタン（index.htmlインラインから移設・ラベル一元管理） =====
-function updateModeButton() {
-  const btn = document.getElementById('mode-toggle-float');
-  if (!btn) return;
-  if (currentMode === 'explore') {
-    btn.innerHTML = '🗺️ 快適モード';
-    btn.style.background = '#27AE60';
-  } else {
-    btn.innerHTML = '<b>探索モード</b>';
-    btn.style.background = '#C0392B';
-  }
+function showDisclaimerIfNeeded() {
+  const today = new Date().toISOString().slice(0, 10);
+  const agreed = localStorage.getItem('disclaimer_agreed');
+  if (agreed === today) return;
+  const overlay = document.getElementById('disclaimer-overlay');
+  if (overlay) overlay.style.display = 'flex';
 }
 
-(function initModeButton() {
-  const btn = document.createElement('button');
-  btn.id = 'mode-toggle-float';
-  btn.style.cssText = `
-    position:fixed;
-    bottom:24px;
-    right:16px;
-    color:#fff;
-    border:none;
-    border-radius:24px;
-    padding:10px 18px;
-    font-size: 17px;
-    font-weight:bold;
-    cursor:pointer;
-    z-index:9999;
-    box-shadow:0 4px 16px rgba(0,0,0,0.5);
-  `;
-  btn.onclick = toggleMode;
-  document.body.appendChild(btn);
-  updateModeButton();
-})();
-
-// ===== Service Worker登録（index.htmlインラインから移設） =====
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('sw.js');
+function agreeDisclaimer() {
+  const today = new Date().toISOString().slice(0, 10);
+  localStorage.setItem('disclaimer_agreed', today);
+  const overlay = document.getElementById('disclaimer-overlay');
+  if (overlay) overlay.style.display = 'none';
 }
 
-// ===== シェアバー（index.htmlインラインから移設） =====
-const SITE_URL = 'https://dansyu-go.nukadokonokai.com';
-const SITE_TEXT = '🏃断酒でGO！今日・明日の断酒例会場をすぐ探せるマップ\n';
-
-function copyShareUrl() {
-  navigator.clipboard.writeText(SITE_TEXT + SITE_URL).then(() => {
-    const btn = document.getElementById('share-copy');
-    btn.textContent = '✅コピー完了';
-    setTimeout(() => btn.textContent = '📋リンクコピー', 1500);
-  });
-}
-
-function openShareBar() {
-  const t = encodeURIComponent(SITE_TEXT + SITE_URL);
-  const u = encodeURIComponent(SITE_URL);
-  document.getElementById('share-x').onclick = () => window.open(`https://twitter.com/intent/tweet?text=${t}`, '_blank');
-  document.getElementById('share-line').onclick = () => window.open(`https://line.me/R/share?text=${encodeURIComponent(SITE_TEXT + SITE_URL)}`, '_blank');
-  document.getElementById('share-fb').onclick = () => window.open(`https://www.facebook.com/sharer/sharer.php?u=${u}`, '_blank');
-}
-
-openShareBar();
+showDisclaimerIfNeeded();
