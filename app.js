@@ -143,7 +143,7 @@ function buildPopup(v) {
       
       ${v.contact_phone && false ? `<div class="popup-phone">📞 ${v.contact_phone}</div>` : ''}
 
-      ${v.has_exception && v.exc_note ? `<div class="popup-exception-note">⚠️ ${v.exc_note}</div>` : ''}
+      ${v.has_exception && v.exc_note ? `<div class="popup-exception-note">📢 ${v.exc_note}</div>` : ''}
       <div class="popup-links">
         ${calLink}
         ${mapsLink}
