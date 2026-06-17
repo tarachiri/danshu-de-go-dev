@@ -102,8 +102,8 @@ function buildPopup(v) {
   const emoji = typeEmoji[v.meeting_type] || '🍶';
 
   // Googleカレンダーリンク
-  const calLink = v.htmlLink
-    ? `<a href="${v.htmlLink}" target="_blank" class="popup-link cal-link">📅 Googleカレンダーで見る</a>`
+  const calLink = v.calendar_url
+    ? `<a href="${v.calendar_url}" target="_blank" class="popup-link" style="background:#27AE60;color:#fff">📅 公式<br>カレンダー</a>`
     : '';
 
   // Google Maps経路リンク
@@ -141,7 +141,7 @@ function buildPopup(v) {
       ${v.contact_phone && false ? `<div class="popup-phone">📞 ${v.contact_phone}</div>` : ''}
 
       <div class="popup-links">
-                ${v.official_url ? `<a href="${v.official_url}" target="_blank" class="popup-link" style="background:#27AE60;color:#fff">🌐公式<br>サイト</a>` : ''}
+                
         ${calLink}
         ${mapsLink}
       </div>
