@@ -78,15 +78,18 @@ function formatDate(d) {
 }
 
 function buildPopup(v) {
-  const label = getDateLabel(v.next_date);
+  let label = getDateLabel(v.next_date);
   const badgeColors = {
     today: '#C0392B', tomorrow: '#D35400',
-    dayafter: '#9A7D0A', other: '#555', none: '#888'
+    dayafter: '#9A7D0A', other: '#555', none: '#888',
+    exception: '#F39C12'
   };
   const badgeTexts = {
     today: '今日開催！', tomorrow: '明日開催', dayafter: '明後日開催',
-    other: '開催予定あり', none: '日程未定'
+    other: '開催予定あり', none: '日程未定',
+    exception: '⚠️ 要確認'
   };
+  if (v.has_exception) { label = 'exception'; }
   const typeEmoji = {
     'シングル': '💍', 'アメシスト': '💜', '家族': '👨‍👩‍👧', '相談': '💬', '本部': '🏛️'
   };
@@ -134,12 +137,13 @@ function buildPopup(v) {
       <div class="popup-name">${emoji} ${name}</div>
       ${facility && facility !== name ? `<div class="popup-facility">🏢 ${facility}${building ? ' ' + building : ''}</div>` : ''}
       ${addr ? `<div class="popup-address">📍 ${addr}</div>` : ''}
-      ${dateStr ? `<div class="popup-date" style="color:${badgeColors[label]}">📅 ${dateStr} ${timeStr}</div>` : ''}
-      ${v.recurrence ? `<div class="popup-recurrence">🔁 ${v.recurrence}</div>` : ''}
+      ${!v.has_exception && dateStr ? `<div class="popup-date" style="color:${badgeColors[label]}">📅 ${dateStr} ${timeStr}</div>` : ''}
+      ${!v.has_exception && v.recurrence ? `<div class="popup-recurrence">🔁 ${v.recurrence}</div>` : ''}
 
       
       ${v.contact_phone && false ? `<div class="popup-phone">📞 ${v.contact_phone}</div>` : ''}
 
+      ${v.has_exception && v.exc_note ? `<div class="popup-exception-note">⚠️ ${v.exc_note}</div>` : ''}
       <div class="popup-links">
         ${calLink}
         ${mapsLink}

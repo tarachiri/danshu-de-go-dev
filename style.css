@@ -151,7 +151,17 @@ body { font-family: -apple-system, sans-serif; background: #1a1a2e; color: #fff;
     font-size: 16px; color: #7A5D00; line-height: 1.6;
   }
   .verify-link { color: #1a6fb3; word-break: break-all; text-decoration: underline; }
-  .popup-links { display: flex; flex-direction: row; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+  .popup-exception-note {
+    font-size: 0.85em;
+    color: #E67E22;
+    margin: 6px 0;
+    padding: 6px 8px;
+    background: #FEF9E7;
+    border-left: 3px solid #F39C12;
+    border-radius: 4px;
+    line-height: 1.4;
+  }
+    .popup-links { display: flex; flex-direction: row; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
   .popup-link { flex: 1; min-width: calc(50% - 3px);
     display: block; text-align: center; padding: 6px 10px;
     border-radius: 6px; font-size: 20px; font-weight: bold;
