@@ -82,7 +82,7 @@ function buildPopup(v) {
   const badgeColors = {
     today: '#C0392B', tomorrow: '#D35400',
     dayafter: '#9A7D0A', other: '#555', none: '#888',
-    exception: '#F39C12'
+    exception: '#C0392B'
   };
   const badgeTexts = {
     today: '今日開催！', tomorrow: '明日開催', dayafter: '明後日開催',
@@ -133,7 +133,7 @@ function buildPopup(v) {
 
   return `
     <div class="popup-box">
-      <span class="popup-badge" style="background:${badgeColors[label]}">${badgeTexts[label]}</span>
+      <span class="popup-badge ${label === 'exception' ? 'exception-badge' : ''}" style="background:${badgeColors[label]}">${badgeTexts[label]}</span>
       <div class="popup-name">${emoji} ${name}</div>
       ${facility && facility !== name ? `<div class="popup-facility">🏢 ${facility}${building ? ' ' + building : ''}</div>` : ''}
       ${addr ? `<div class="popup-address">📍 ${addr}</div>` : ''}
