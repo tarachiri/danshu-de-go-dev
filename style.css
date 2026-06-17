@@ -228,3 +228,16 @@ body { font-family: -apple-system, sans-serif; background: #1a1a2e; color: #fff;
 #disclaimer-btn:active {
   background: #1A252F;
 }
+
+/* 要確認ノート */
+.popup-exception-note {
+  font-size: 19px;
+  font-weight: bold;
+  color: #7D3C00;
+  margin: 8px 0;
+  padding: 8px 10px;
+  background: #FEF9E7;
+  border-left: 4px solid #E67E22;
+  border-radius: 4px;
+  line-height: 1.5;
+}
