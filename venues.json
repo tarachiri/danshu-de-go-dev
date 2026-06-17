@@ -5400,24 +5400,6 @@
     "needs_verification": 0,
     "meetings": [
       {
-        "name": "市役所分庁舎　例会",
-        "day_of_week": "木",
-        "week_of_month": "3",
-        "start_time": "18:00",
-        "end_time": "20:00",
-        "recurrence": "第3木曜",
-        "next_date": "2026-06-18"
-      },
-      {
-        "name": "市役所分庁舎例会",
-        "day_of_week": "木",
-        "week_of_month": "3",
-        "start_time": "18:00",
-        "end_time": "20:00",
-        "recurrence": "第3木曜",
-        "next_date": "2026-06-18"
-      },
-      {
         "name": "川崎例会",
         "day_of_week": "",
         "week_of_month": "",
@@ -5430,11 +5412,11 @@
     "fallback_meeting_name": "",
     "fallback_schedule": "",
     "fallback_next_date": "",
-    "next_date": "2026-06-18",
-    "meeting_name": "市役所分庁舎　例会",
-    "start_time": "18:00",
-    "end_time": "20:00",
-    "recurrence": "第3木曜"
+    "next_date": "",
+    "meeting_name": "川崎例会",
+    "start_time": "",
+    "end_time": "",
+    "recurrence": ""
   },
   {
     "id": 98,
