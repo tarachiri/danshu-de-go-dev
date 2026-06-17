@@ -10,26 +10,13 @@
 <meta name="apple-mobile-web-app-title" content="断酒でGO!!">
 <link rel="apple-touch-icon" href="icon-192.png">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css"/>
+<link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css"/>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
 <link rel="stylesheet" href="style.css">
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-B1YCK7W6XG"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-B1YCK7W6XG');
-</script>
-<meta name="description" content="断酒会の例会場を地図で検索。今日・明日の例会がすぐわかる。東京・神奈川・埼玉・千葉・栃木の例会場情報を掲載。登録不要・無料。">
-<meta property="og:title" content="断酒でGO!! - 断酒会例会場マップ">
-<meta property="og:description" content="断酒会の例会場を地図で検索。今日・明日の例会がすぐわかる。東京・神奈川・埼玉・千葉・栃木の例会場情報を掲載。登録不要・無料。">
-<meta property="og:url" content="https://dansyu-go.nukadokonokai.com">
-<meta property="og:type" content="website">
-<meta property="og:image" content="https://dansyu-go.nukadokonokai.com/ogp.png">
-<meta property="og:locale" content="ja_JP">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="断酒でGO!! - 断酒会例会場マップ">
-<meta name="twitter:description" content="断酒会の例会場を地図で検索。今日・明日の例会がすぐわかる。登録不要・無料。">
-<meta name="twitter:image" content="https://dansyu-go.nukadokonokai.com/ogp.png">
+<script src="js/analytics.js"></script>
 </head>
 <body>
 
@@ -133,7 +120,6 @@
       <option value="神奈川県">神奈川</option>
       <option value="埼玉県">埼玉</option>
       <option value="千葉県">千葉</option>
-      <option value="栃木県">栃木</option>
     </select>
     <button id="install-btn" onclick="showInstallGuide()" style="background:none;border:none;color:#fff;font-size: 25px;cursor:pointer;padding:4px;">📲</button>
   </div>
@@ -146,7 +132,7 @@
   <div style="display:inline-flex; align-items:center; gap:10px; 
 padding:6px 12px; min-width:max-content;">
     <span id="count-total" style="color:#ffffff; font-size: 15px; 
-flex-shrink:0;">読込中...</span>
+flex-shrink:0;">全191件中0件</span>
     <div class="legend-item" style="flex-shrink:0;">
       <div class="legend-dot" 
 style="width:9px;height:9px;background:#C0392B;"></div>
@@ -200,64 +186,5 @@ flex-shrink:0;"></div>
 <div id="footer" style="background:#16213e;padding:4px 
 16px;font-size: 15px;color:#a0a0b0;text-align:center;border-top:1px solid #0f3460;">© 
 2026 ぬか床の会 | <span id="footer-updated"></span></div> <script src="app.js"></script>
-<script>
-if('serviceWorker' in navigator){
-  navigator.serviceWorker.register('sw.js');
-}
-
-
-const btn = document.createElement('button');
-  btn.id = 'mode-toggle-float';
-  btn.innerHTML = '<b>快適モード</b>';
-  btn.style.cssText = `
-    position:fixed;
-    bottom:24px;
-    right:16px;
-    background:#C0392B;
-    color:#fff;
-    border:none;
-    border-radius:24px;
-    padding:10px 18px;
-    font-size: 17px;
-    font-weight:bold;
-    cursor:pointer;
-    z-index:9999;
-    box-shadow:0 4px 16px rgba(0,0,0,0.5);
-  `;
-  btn.onclick = function() {
-    toggleMode();
-  };
-  document.body.appendChild(btn);
-
-
-const SITE_URL = 'https://dansyu-go.nukadokonokai.com';
-const SITE_TEXT = 
-'🏃断酒でGO！今日・明日の断酒例会場をすぐ探せるマップ\n';
-
-
-function copyShareUrl() {
-  navigator.clipboard.writeText(SITE_TEXT + SITE_URL).then(() => {
-    const btn = document.getElementById('share-copy');
-    btn.textContent = '✅コピー完了';
-    setTimeout(() => btn.textContent = '📋リンクコピー', 1500);
-  });
-}
-
-function openShareBar() {
-  const t = encodeURIComponent(SITE_TEXT + SITE_URL);
-  const u = encodeURIComponent(SITE_URL);
-  document.getElementById('share-x').onclick = () => 
-window.open(`https://twitter.com/intent/tweet?text=${t}`, '_blank');
-  document.getElementById('share-line').onclick = () => 
-window.open(`https://line.me/R/share?text=${encodeURIComponent(SITE_TEXT + 
-SITE_URL)}`, '_blank');
-  document.getElementById('share-fb').onclick = () => 
-window.open(`https://www.facebook.com/sharer/sharer.php?u=${u}`, 
-'_blank');
-}
-
-openShareBar();
-
-</script>
 </body>
 </html>
