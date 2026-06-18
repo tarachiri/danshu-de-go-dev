@@ -128,7 +128,7 @@ body { font-family: -apple-system, sans-serif; background: #1a1a2e; color: #fff;
     text-align: center;
   }
 
-  .popup-box { font-family: -apple-system, sans-serif; min-width: 180px; max-width: 100%; max-height: 50vh; overflow-y: auto; }
+  .popup-box { font-family: -apple-system, sans-serif; min-width: 180px; max-width: 100%; max-height: 50vh; display: flex; flex-direction: column; }
   .popup-badge {
     display: inline-block;
     padding: 2px 8px;
@@ -273,7 +273,9 @@ body { font-family: -apple-system, sans-serif; background: #1a1a2e; color: #fff;
 
 /* ── v6 ポップアップ縦スクロール対応 ── */
 .meetings-list {
+  overflow-y: auto;
   overflow-x: hidden;
+  flex: 1;
 }
 
 /* 閉じるボタン大型化 */
