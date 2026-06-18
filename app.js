@@ -442,7 +442,7 @@ function applyFilters() {
     if (areaFilter !== 'all' && v.prefecture !== areaFilter) return;
 
     const marker = L.marker([v.lat, v.lng], { icon: makeIcon(v) })
-      .bindPopup(buildPopup(v), { maxWidth: 260 });
+      .bindPopup(buildPopup(v), { maxWidth: 260, closeOnClick: false, autoPan: true });
 
     activeGroup.addLayer(marker);
     window._markers[v.id] = marker;
