@@ -270,3 +270,10 @@ body { font-family: -apple-system, sans-serif; background: #1a1a2e; color: #fff;
   font-weight: bold;
   color: #1a1a2e;
 }
+
+/* ── v6 ポップアップ縦スクロール対応 ── */
+.leaflet-popup-content {
+  max-height: 60vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
