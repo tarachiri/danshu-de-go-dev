@@ -339,6 +339,15 @@ let clusterGroup = L.markerClusterGroup({
   disableClusteringAtZoom: 14
 });
 map.addLayer(clusterGroup);
+
+// Leafletが強制するmaxHeightをリセットしてCSSに委ねる
+map.on('popupopen', function(e) {
+  const content = e.popup.getElement()?.querySelector('.leaflet-popup-content');
+  if (content) {
+    content.style.maxHeight = '';
+    content.style.overflow = '';
+  }
+});
 let comfortGroup = L.layerGroup();
 let currentMode = 'comfort';
 
