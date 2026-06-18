@@ -216,9 +216,9 @@ function buildPopup(v) {
       <div class="popup-name">🏢 ${v.facility_name || headName}${meetings && meetings.length > 1 ? '<span class="meeting-count-badge">' + meetings.length + '件</span>' : ''}</div>
       ${addr ? `<div class="popup-address">📍 ${addr}</div>` : ''}
       ${verifyNotice}
-      <div class="meetings-wrapper"><div class="meetings-list">
+      <div class="meetings-list">
         ${meetingsHTML}
-      </div></div>
+      </div>
       <div class="popup-links" style="flex-shrink:0">
         ${calLink}
         ${mapsLink}
@@ -340,29 +340,14 @@ let clusterGroup = L.markerClusterGroup({
 });
 map.addLayer(clusterGroup);
 
-// popupopen: 高さをJSで制御
+// popupopen: LeafletのmaxHeightを解除
 map.on('popupopen', function(e) {
   const el = e.popup.getElement();
   if (!el) return;
   const content = el.querySelector('.leaflet-popup-content');
-  const box = el.querySelector('.popup-box');
-  const wrapper = el.querySelector('.meetings-wrapper');
-  if (!content || !box || !wrapper) return;
-  // LeafletのmaxHeightを解除
-  content.style.maxHeight = '';
-  content.style.overflow = 'hidden';
-  // popup-boxをflexコンテナとして高さ制限
-  const vh55 = Math.floor(window.innerHeight * 0.55);
-  box.style.maxHeight = vh55 + 'px';
-  box.style.display = 'flex';
-  box.style.flexDirection = 'column';
-  box.style.overflow = 'hidden';
-  // listに直接maxHeightを設定してスクロール有効化
-  const list = el.querySelector('.meetings-list');
-  if (list) {
-    list.style.maxHeight = '180px';
-    list.style.overflowY = 'auto';
-    list.style.overflow = 'auto';
+  if (content) {
+    content.style.maxHeight = '';
+    content.style.overflow = '';
   }
 });
 let comfortGroup = L.layerGroup();
