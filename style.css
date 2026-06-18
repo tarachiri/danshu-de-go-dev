@@ -242,6 +242,13 @@ body { font-family: -apple-system, sans-serif; background: #1a1a2e; color: #fff;
   line-height: 1.5;
 }
 
+/* ── v6 popup-box flex上書き（メディアクエリ外） ── */
+.popup-box {
+  max-height: 50vh;
+  display: flex !important;
+  flex-direction: column !important;
+}
+
 /* ── v6 複数例会カード ── */
 .meetings-list {
   margin: 8px 0;
