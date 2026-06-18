@@ -213,12 +213,12 @@ function buildPopup(v) {
     <div class="popup-box">
       <span class="popup-badge ${headLabel === 'exception' || headLabel === 'cancel' ? 'exception-badge' : ''}"
             style="background:${badgeColors[headLabel]}">${badgeTexts[headLabel]}</span>
-      <div class="popup-name">🏢 ${v.facility_name || headName}</div>
+      <div class="popup-name">🏢 ${v.facility_name || headName}${meetings && meetings.length > 1 ? '<span class="meeting-count-badge">' + meetings.length + '件</span>' : ''}</div>
       ${addr ? `<div class="popup-address">📍 ${addr}</div>` : ''}
       ${verifyNotice}
-      <div class="meetings-list">
+      <div class="meetings-wrapper"><div class="meetings-list">
         ${meetingsHTML}
-      </div>
+      </div></div>
       <div class="popup-links">
         ${calLink}
         ${mapsLink}

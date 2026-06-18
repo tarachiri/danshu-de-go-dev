@@ -275,7 +275,12 @@ body { font-family: -apple-system, sans-serif; background: #1a1a2e; color: #fff;
 .meetings-list {
   overflow-y: auto;
   overflow-x: hidden;
+}
+
+.meetings-wrapper {
+  position: relative;
   flex: 1;
+  overflow: hidden;
 }
 
 /* 閉じるボタン大型化 */
@@ -287,4 +292,29 @@ body { font-family: -apple-system, sans-serif; background: #1a1a2e; color: #fff;
   top: 2px !important;
   right: 2px !important;
   color: #333 !important;
+}
+
+/* ── 件数バッジ ── */
+.meeting-count-badge {
+  display: inline-block;
+  margin-left: 8px;
+  padding: 2px 8px;
+  background: #1A5276;
+  color: #fff;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: bold;
+  vertical-align: middle;
+}
+
+/* ── カードエリア下端グラデーションフェード ── */
+.meetings-wrapper::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 32px;
+  background: linear-gradient(transparent, #fff);
+  pointer-events: none;
 }
