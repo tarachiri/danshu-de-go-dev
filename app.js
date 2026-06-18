@@ -1,4 +1,4 @@
-const map = window._leafletMap = L.map('map', {zoomControl: false, tap: false}).setView([35.68, 139.60], 9);
+const map = window._leafletMap = L.map('map', {zoomControl: false}).setView([35.68, 139.60], 9);
 // JSTで今日の日付文字列を返すヘルパー
 function getTodayJST() {
   const now = new Date();
@@ -173,7 +173,7 @@ function buildPopup(v) {
       }
       const cardColor = badgeColors[cardLabel] || '#555';
       const cardText  = badgeTexts[cardLabel]  || '開催予定あり';
-      const mEmoji    = typeEmoji[m.meeting_type || ''] || '';
+      const mEmoji    = typeEmoji[m.meeting_type] || '';
 
       // 日付・時刻
       const timeStr = m.start_time ? `${m.start_time}〜${m.end_time || ''}` : '';
@@ -442,7 +442,7 @@ function applyFilters() {
     if (areaFilter !== 'all' && v.prefecture !== areaFilter) return;
 
     const marker = L.marker([v.lat, v.lng], { icon: makeIcon(v) })
-      .bindPopup(buildPopup(v), { maxWidth: 260, closeOnClick: false, autoPan: true });
+      .bindPopup(buildPopup(v), { maxWidth: 260 });
 
     activeGroup.addLayer(marker);
     window._markers[v.id] = marker;
