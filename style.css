@@ -128,7 +128,7 @@ body { font-family: -apple-system, sans-serif; background: #1a1a2e; color: #fff;
     text-align: center;
   }
 
-  .popup-box { font-family: -apple-system, sans-serif; min-width: 220px; }
+  .popup-box { font-family: -apple-system, sans-serif; min-width: 180px; max-width: 100%; }
   .popup-badge {
     display: inline-block;
     padding: 2px 8px;
@@ -273,7 +273,7 @@ body { font-family: -apple-system, sans-serif; background: #1a1a2e; color: #fff;
 
 /* ── v6 ポップアップ縦スクロール対応 ── */
 .meetings-list {
-  max-height: 40vh;
+  max-height: 28vh;
   overflow-y: auto;
   overflow-x: hidden;
 }
