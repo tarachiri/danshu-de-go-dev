@@ -241,3 +241,32 @@ body { font-family: -apple-system, sans-serif; background: #1a1a2e; color: #fff;
   border-radius: 4px;
   line-height: 1.5;
 }
+
+/* ── v6 複数例会カード ── */
+.meetings-list {
+  margin: 8px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.meeting-card {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 8px 10px;
+  background: #f9f9f9;
+}
+
+.meeting-card-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 4px;
+  flex-wrap: wrap;
+}
+
+.meeting-card-name {
+  font-size: 15px;
+  font-weight: bold;
+  color: #1a1a2e;
+}
