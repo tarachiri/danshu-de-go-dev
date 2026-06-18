@@ -361,6 +361,13 @@ map.on('popupopen', function(e) {
   wrapper.style.flex = '1';
   wrapper.style.minHeight = '0';
   wrapper.style.overflow = 'hidden';
+  // listをwrapper高さに合わせてスクロール有効化
+  const list = el.querySelector('.meetings-list');
+  if (list) {
+    list.style.maxHeight = '100%';
+    list.style.height = '100%';
+    list.style.overflowY = 'auto';
+  }
 });
 let comfortGroup = L.layerGroup();
 let currentMode = 'comfort';
