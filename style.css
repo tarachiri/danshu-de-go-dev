@@ -242,19 +242,39 @@ body { font-family: -apple-system, sans-serif; background: #1a1a2e; color: #fff;
   line-height: 1.5;
 }
 
-/* ── v6 popup-box flex上書き（メディアクエリ外） ── */
+/* ── v6 ポップアップ構造 ── */
 .popup-box {
-  max-height: 50vh;
+  max-height: 52vh;
   display: flex !important;
   flex-direction: column !important;
+  font-family: -apple-system, sans-serif;
 }
 
-/* ── v6 複数例会カード ── */
+.meetings-wrapper {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+}
+
 .meetings-list {
-  margin: 8px 0;
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
   display: flex;
   flex-direction: column;
   gap: 8px;
+  padding: 4px 0 32px 0;
+}
+
+/* カード下端グラデーション */
+.meetings-wrapper::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 32px;
+  background: linear-gradient(transparent, #fff);
+  pointer-events: none;
 }
 
 .meeting-card {
@@ -262,6 +282,7 @@ body { font-family: -apple-system, sans-serif; background: #1a1a2e; color: #fff;
   border-radius: 8px;
   padding: 8px 10px;
   background: #f9f9f9;
+  flex-shrink: 0;
 }
 
 .meeting-card-header {
@@ -273,21 +294,22 @@ body { font-family: -apple-system, sans-serif; background: #1a1a2e; color: #fff;
 }
 
 .meeting-card-name {
-  font-size: 15px;
+  font-size: 17px;
   font-weight: bold;
   color: #1a1a2e;
 }
 
-/* ── v6 ポップアップ縦スクロール対応 ── */
-.meetings-list {
-  overflow-y: auto;
-  overflow-x: hidden;
-}
-
-.meetings-wrapper {
-  position: relative;
-  flex: 1;
-  min-height: 0;
+/* 件数バッジ */
+.meeting-count-badge {
+  display: inline-block;
+  margin-left: 8px;
+  padding: 2px 8px;
+  background: #1A5276;
+  color: #fff;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: bold;
+  vertical-align: middle;
 }
 
 /* 閉じるボタン大型化 */
@@ -301,37 +323,9 @@ body { font-family: -apple-system, sans-serif; background: #1a1a2e; color: #fff;
   color: #333 !important;
 }
 
-/* ── 件数バッジ ── */
-.meeting-count-badge {
-  display: inline-block;
-  margin-left: 8px;
-  padding: 2px 8px;
-  background: #1A5276;
-  color: #fff;
-  border-radius: 10px;
-  font-size: 13px;
-  font-weight: bold;
-  vertical-align: middle;
-}
-
-/* ── カードエリア下端グラデーションフェード ── */
-.meetings-wrapper::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 32px;
-  background: linear-gradient(transparent, #fff);
-  pointer-events: none;
-}
-
-/* ── Leafletポップアップ内部コンテナ高さ制限 ── */
-.leaflet-popup-content-wrapper {
-  padding: 0 !important;
-}
+/* Leafletポップアップ高さ制限 */
 .leaflet-popup-content {
-  margin: 0 !important;
+  margin: 8px !important;
   max-height: 55vh !important;
   overflow: hidden !important;
   display: flex !important;
