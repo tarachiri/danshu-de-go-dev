@@ -325,3 +325,15 @@ body { font-family: -apple-system, sans-serif; background: #1a1a2e; color: #fff;
   background: linear-gradient(transparent, #fff);
   pointer-events: none;
 }
+
+/* ── Leafletポップアップ内部コンテナ高さ制限 ── */
+.leaflet-popup-content-wrapper {
+  padding: 0 !important;
+}
+.leaflet-popup-content {
+  margin: 0 !important;
+  max-height: 55vh !important;
+  overflow: hidden !important;
+  display: flex !important;
+  flex-direction: column !important;
+}
