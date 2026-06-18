@@ -357,20 +357,13 @@ map.on('popupopen', function(e) {
   box.style.display = 'flex';
   box.style.flexDirection = 'column';
   box.style.overflow = 'hidden';
-  // listの高さをpx直指定でスクロール有効化
+  // listに直接maxHeightを設定してスクロール有効化
   const list = el.querySelector('.meetings-list');
-  const links = el.querySelector('.popup-links');
-  const name = el.querySelector('.popup-name');
-  const addr = el.querySelector('.popup-address');
-  const badge = el.querySelector('.popup-badge');
-  setTimeout(() => {
-    const usedHeight = (badge?.offsetHeight||0) + (name?.offsetHeight||0) + (addr?.offsetHeight||0) + (links?.offsetHeight||0) + 40;
-    const availHeight = Math.floor(window.innerHeight * 0.55) - usedHeight;
-    if (list && availHeight > 60) {
-      list.style.maxHeight = availHeight + 'px';
-      list.style.overflowY = 'auto';
-    }
-  }, 50);
+  if (list) {
+    list.style.maxHeight = '180px';
+    list.style.overflowY = 'auto';
+    list.style.overflow = 'auto';
+  }
 });
 let comfortGroup = L.layerGroup();
 let currentMode = 'comfort';
