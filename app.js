@@ -340,13 +340,27 @@ let clusterGroup = L.markerClusterGroup({
 });
 map.addLayer(clusterGroup);
 
-// Leafletが強制するmaxHeightをリセットしてCSSに委ねる
+// popupopen: 高さをJSで制御
 map.on('popupopen', function(e) {
-  const content = e.popup.getElement()?.querySelector('.leaflet-popup-content');
-  if (content) {
-    content.style.maxHeight = '';
-    content.style.overflow = '';
-  }
+  const el = e.popup.getElement();
+  if (!el) return;
+  const content = el.querySelector('.leaflet-popup-content');
+  const box = el.querySelector('.popup-box');
+  const wrapper = el.querySelector('.meetings-wrapper');
+  if (!content || !box || !wrapper) return;
+  // LeafletのmaxHeightを解除
+  content.style.maxHeight = '';
+  content.style.overflow = 'hidden';
+  // popup-boxをflexコンテナとして高さ制限
+  const vh55 = Math.floor(window.innerHeight * 0.55);
+  box.style.maxHeight = vh55 + 'px';
+  box.style.display = 'flex';
+  box.style.flexDirection = 'column';
+  box.style.overflow = 'hidden';
+  // wrapperを残り高さに
+  wrapper.style.flex = '1';
+  wrapper.style.minHeight = '0';
+  wrapper.style.overflow = 'hidden';
 });
 let comfortGroup = L.layerGroup();
 let currentMode = 'comfort';

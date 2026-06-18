@@ -128,7 +128,7 @@ body { font-family: -apple-system, sans-serif; background: #1a1a2e; color: #fff;
     text-align: center;
   }
 
-  .popup-box { font-family: -apple-system, sans-serif; min-width: 220px; }
+  .popup-box { font-family: -apple-system, sans-serif; min-width: 220px; display: flex; flex-direction: column; overflow: hidden; }
   .popup-badge {
     display: inline-block;
     padding: 2px 8px;
@@ -271,14 +271,6 @@ body { font-family: -apple-system, sans-serif; background: #1a1a2e; color: #fff;
   max-height: 55vh !important;
   display: flex !important;
   flex-direction: column !important;
-  overflow: hidden !important;
-}
-
-.popup-box {
-  display: flex !important;
-  flex-direction: column !important;
-  flex: 1 !important;
-  min-height: 0 !important;
   overflow: hidden !important;
 }
 
