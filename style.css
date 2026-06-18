@@ -280,7 +280,7 @@ body { font-family: -apple-system, sans-serif; background: #1a1a2e; color: #fff;
 .meetings-wrapper {
   position: relative;
   flex: 1;
-  overflow: hidden;
+  min-height: 0;
 }
 
 /* 閉じるボタン大型化 */
