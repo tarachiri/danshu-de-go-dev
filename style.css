@@ -270,3 +270,66 @@ body { font-family: -apple-system, sans-serif; background: #1a1a2e; color: #fff;
   font-weight: bold;
   color: #1a1a2e;
 }
+
+/* ── v6 ポップアップ スクロール構造 ── */
+.leaflet-popup-content {
+  margin: 8px !important;
+  max-height: 55vh !important;
+  display: flex !important;
+  flex-direction: column !important;
+  overflow: hidden !important;
+}
+
+.popup-box {
+  display: flex !important;
+  flex-direction: column !important;
+  flex: 1 !important;
+  min-height: 0 !important;
+  overflow: hidden !important;
+}
+
+.meetings-wrapper {
+  flex: 1;
+  min-height: 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.meetings-list {
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-bottom: 28px;
+}
+
+.meetings-wrapper::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 28px;
+  background: linear-gradient(transparent, #fff);
+  pointer-events: none;
+}
+
+.meeting-count-badge {
+  display: inline-block;
+  margin-left: 8px;
+  padding: 2px 8px;
+  background: #1A5276;
+  color: #fff;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: bold;
+  vertical-align: middle;
+}
+
+/* 閉じるボタン大型化 */
+.leaflet-popup-close-button {
+  font-size: 32px !important;
+  width: 44px !important;
+  height: 44px !important;
+  line-height: 44px !important;
+  top: 2px !important;
+  right: 2px !important;
+  color: #333 !important;
+}
