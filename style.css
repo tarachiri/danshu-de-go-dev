@@ -272,8 +272,19 @@ body { font-family: -apple-system, sans-serif; background: #1a1a2e; color: #fff;
 }
 
 /* ── v6 ポップアップ縦スクロール対応 ── */
-.leaflet-popup-content {
-  max-height: 60vh;
+.meetings-list {
+  max-height: 40vh;
   overflow-y: auto;
   overflow-x: hidden;
+}
+
+/* 閉じるボタン大型化 */
+.leaflet-popup-close-button {
+  font-size: 24px !important;
+  width: 32px !important;
+  height: 32px !important;
+  line-height: 32px !important;
+  top: 4px !important;
+  right: 4px !important;
+  color: #333 !important;
 }
