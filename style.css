@@ -280,11 +280,11 @@ body { font-family: -apple-system, sans-serif; background: #1a1a2e; color: #fff;
 
 /* 閉じるボタン大型化 */
 .leaflet-popup-close-button {
-  font-size: 24px !important;
-  width: 32px !important;
-  height: 32px !important;
-  line-height: 32px !important;
-  top: 4px !important;
-  right: 4px !important;
+  font-size: 32px !important;
+  width: 44px !important;
+  height: 44px !important;
+  line-height: 44px !important;
+  top: 2px !important;
+  right: 2px !important;
   color: #333 !important;
 }
