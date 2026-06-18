@@ -213,12 +213,13 @@ function buildPopup(v) {
     <div class="popup-box">
       <span class="popup-badge ${headLabel === 'exception' || headLabel === 'cancel' ? 'exception-badge' : ''}"
             style="background:${badgeColors[headLabel]}">${badgeTexts[headLabel]}</span>
-      <div class="popup-name">🏢 ${v.facility_name || headName}${meetings && meetings.length > 1 ? '<span class="meeting-count-badge">' + meetings.length + '件</span>' : ''}</div>
+      <div class="popup-name">${headEmoji ? headEmoji + ' ' : ''}${headName}</div>
+      ${v.facility_name ? `<div class="popup-facility">🏢 ${v.facility_name}</div>` : ''}
       ${addr ? `<div class="popup-address">📍 ${addr}</div>` : ''}
       ${verifyNotice}
-      <div class="meetings-wrapper"><div class="meetings-list">
+      <div class="meetings-list">
         ${meetingsHTML}
-      </div></div>
+      </div>
       <div class="popup-links">
         ${calLink}
         ${mapsLink}
@@ -442,7 +443,7 @@ function applyFilters() {
     if (areaFilter !== 'all' && v.prefecture !== areaFilter) return;
 
     const marker = L.marker([v.lat, v.lng], { icon: makeIcon(v) })
-      .bindPopup(buildPopup(v), { maxWidth: 260 });
+      .bindPopup(buildPopup(v), { maxWidth: 300 });
 
     activeGroup.addLayer(marker);
     window._markers[v.id] = marker;
